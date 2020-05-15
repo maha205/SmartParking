@@ -1,0 +1,147 @@
+<style>
+
+    </style>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+<!------ Include the above in your HEAD tag ---------->
+<main role="main" class="container">
+
+  <div class="loader" *ngIf="dataLoading"></div>
+  <div class="alert alert-danger" role="alert" *ngIf="error">
+    An error occured. Here is the error : {{ errorMessage }}.
+  </div>
+  <div *ngIf="savedChanges else showForm">
+    New Account is created. Please login.
+    <button class="btn btn-lg btn-primary btn-block" routerLink="/login" type="button">Login</button>
+  </div>
+  <ng-template #showForm>
+    <span class="lead">
+ <form class="form-signin" #newUserForm="ngForm" (ngSubmit)="setUser(newUserForm.value)">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="well center-block">
+				<div class="well-header">
+					<h3 class="text-center " style="color:#0F575C"> <b>Register Here!</b> </h3>
+					<hr>
+				</div>
+
+				<div class="row">
+					<div class="col-md-12 col-sm-12 col-xs-12">
+						<div class="form-group">
+							<div class="input-group">
+								<div class="input-group-addon" style="background-color:#0F575C;">
+									<i class="glyphicon glyphicon-user"></i>
+								</div>
+       <input type="text" name="inputFullName" id="inputFullName" class="form-control" placeholder="Full Name" #inputFullName="ngModel"
+            required minlength="3" maxlength="200" ngModel>
+        <div class="alert alert-danger" role="alert" *ngIf="inputFullName.invalid && (inputFullName.dirty || inputFullName.touched)">
+          Please enter a valid full name.
+        </div>								
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="row">
+					<div class="col-md-12 col-sm-12 col-xs-12">
+						<div class="form-group">
+							<div class="input-group">
+								<div class="input-group-addon" style="background-color:#0F575C;">
+									<i  class="glyphicon glyphicon-envelope" ></i>
+								</div>
+  <input type="email" name="inputEmail" id="inputEmail" class="form-control" placeholder="Email address" #inputEmail="ngModel"
+            autofocus required email ngModel>
+        <div class="alert alert-danger" role="alert" *ngIf="inputEmail.invalid && (inputEmail.dirty || inputEmail.touched)">
+          Please enter a valid email.
+        </div>							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-12 col-xs-12 col-sm-12">
+						<div class="form-group">
+							<div class="input-group">
+								<div class="input-group-addon" style="background-color:#0F575C;">
+									<i class="glyphicon glyphicon-phone"></i>
+								</div>
+      <input type="text" name="inputPhoneNo" id="inputPhoneNo" class="form-control" placeholder="Phone Number" #inputPhoneNo="ngModel"
+            required minlength="10" maxlength="20" ngModel>
+        <div class="alert alert-danger" role="alert" *ngIf="inputPhoneNo.invalid && (inputPhoneNo.dirty || inputPhoneNo.touched)">
+          Please enter a valid phone Number.
+        </div>							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-12 col-xs-12 col-sm-12">
+						<div class="form-group">
+							<div class="input-group">
+								<div class="input-group-addon" style="background-color:#0F575C;">
+									<i class="glyphicon glyphicon-envelope"></i>
+								</div>
+      <input type="text" name="inputAddress" id="inputAddress" class="form-control" placeholder="Address" #inputAddress="ngModel"
+            required minlength="3" maxlength="200" ngModel>
+        <div class="alert alert-danger" role="alert" *ngIf="inputAddress.invalid && (inputAddress.dirty || inputAddress.touched)">
+          Please enter a valid Address.
+        </div>							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-12 col-xs-12 col-sm-12">
+						<div class="form-group">
+							<div class="input-group">
+								<div class="input-group-addon" style="background-color:#0F575C;">
+									<i class="glyphicon glyphicon-list-alt"></i>
+								</div>
+     <input type="text" name="inputCarNo" id="inputCarNo" class="form-control" placeholder="Car Number" #inputCarNo="ngModel"
+            required minlength="5" maxlength="20" ngModel>
+        <div class="alert alert-danger" role="alert" *ngIf="inputCarNo.invalid && (inputCarNo.dirty || inputCarNo.touched)">
+          Please enter a valid Car Number.
+        </div>							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-12 col-xs-12 col-sm-12">
+						<div class="form-group">
+							<div class="input-group">
+								<div class="input-group-addon" style="background-color:#0F575C;">
+									<i class="glyphicon glyphicon-lock"></i>
+								</div>
+ <input type="password" name="inputPassword" id="inputPassword" class="form-control" placeholder="Password" #inputPassword="ngModel"
+            required minlength="3" maxlength="20" ngModel>
+        <div class="alert alert-danger" role="alert" *ngIf="inputPassword.invalid && (inputPassword.dirty || inputPassword.touched)">
+          Please enter a valid password between 3 to 20 chars.
+        </div>							</div>
+						</div>
+					</div>
+				</div>
+
+<div class="row widget">
+					<div class="col-md-12 col-xs-12 col-sm-12">
+  <div *ngIf="!newUserForm.valid else showSubmitButton">
+          <button  class="btn  btn-block" style="background-color:#0F575C; color:#d17d00;" disabled>Sign up</button>
+        </div>
+        <ng-template #showSubmitButton>
+          <button  class="btn  btn-block" style="background-color:#0F575C; color:#d17d00;" type="submit">Sign up</button>
+        </ng-template>
+        
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+</form>
+  </span>
+  </ng-template>
+  </main>

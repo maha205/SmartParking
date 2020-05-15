@@ -1,0 +1,73 @@
+<br/>
+<main role="main" class="container">
+  <div class="loader" *ngIf="dataLoading"></div>
+  <div class="alert alert-danger" role="alert" *ngIf="error">
+    An error occured. Here is the error : {{ errorMessage }}.
+  </div>
+  <span class="lead">
+<form class="form-signin" #loginForm="ngForm" (ngSubmit)="login(loginForm.value)"> 
+<body>
+<div class="container">
+	<div class="d-flex justify-content-center h-100">
+		<div class="card">
+			<div class="card-header">
+				<h3>Sign In</h3>
+				<div class="d-flex justify-content-end social_icon">
+					<span><i class="fab fa-facebook-square"></i></span>
+					<span><i class="fab fa-google-plus-square"></i></span>
+					<span><i class="fab fa-twitter-square"></i></span>
+				</div>
+			</div>
+			<div class="card-body">
+        <br/>
+        <br/>
+
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-user"></i></span>
+						</div>
+           <input type="email" class="form-control" name="inputEmail" id="inputEmail" class="form-control" placeholder="Email address" #inputEmail="ngModel" autofocus required email ngModel>
+					</div>
+              <div class="alert alert-danger" role="alert" *ngIf="inputEmail.invalid && (inputEmail.dirty || inputEmail.touched)">
+             Please enter a valid email.
+             </div>
+
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-key"></i></span>
+						</div>
+          <input type="password" class="form-control" name="inputPassword" id="inputPassword" class="form-control" placeholder="Password" #inputPassword="ngModel" required minlength="3" maxlength="20" ngModel>
+					</div>
+              <div class="alert alert-danger" role="alert" *ngIf="inputPassword.invalid && (inputPassword.dirty || inputPassword.touched)">
+          Please enter a valid password between 3 to 20 chars.
+            </div>
+                  <br/>
+					<div class="row align-items-center remember">
+						<input type="checkbox">Remember Me
+					</div>
+          <br/>
+          
+      <div *ngIf="!loginForm.valid else showSubmitButton">  
+      <button class="btn btn-lg btn-block btn-block" type="submit"disabled>Sign in</button>
+    </div>
+    <ng-template #showSubmitButton >
+      <button class="btn btn-lg btn-block btn-block"type="submit" style="background-color:#0F575C;">Sign in</button>
+    </ng-template>
+          
+			</div>
+			<div class="card-footer">
+				<div class="d-flex justify-content-center links"  style="color:#0F575C">
+					<b>Don't have an account?</b><a   routerLink="/signup" style="color:black"><b>Sign Up</b></a>
+				</div>
+				<div class="d-flex justify-content-center">
+					<a href="#"  style="color:black"><b>Forgot your password?</b></a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+</body>
+</form>
+</span>
+</main>

@@ -1,0 +1,97 @@
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<main role="main" class="container">
+  <div class="loader" *ngIf="dataLoading"></div>
+  <div class="alert alert-danger" role="alert" *ngIf="error">
+    An error occured. Here is the error : {{ errorMessage }}.
+  </div>
+  <div *ngIf="savedChanges else showForm">
+    Your changes are saved.
+    <button class="btn btn-lg btn-primary btn-block" (click)="savedChanges=!savedChanges; getData();" type="button">Close</button>
+  </div>
+  <ng-template #showForm>
+      <span class="lead">
+          <form class="form-signin" #settingsForm="ngForm" (ngSubmit)="settings(settingsForm.value)">
+<div class="container">
+    <div class="view-account">
+        <section class="module">
+            <div class="module-inner">
+                <div class="content-panel">
+                        <fieldset class="fieldset">
+                            <h3 class="fieldset-title" style="color:#d17d00;"><b>Personal Info</b></h3>
+                            <div class="form-group">
+                                <label class="col-md-2 col-sm-3 col-xs-12 control-label" style="color:#0F575C;" class="form-horizontal"><b>User Name</b></label>
+                                <div class="col-md-10 col-sm-9 col-xs-12">
+                                          <input type="text" name="inputFullName" id="inputFullName" class="form-control" placeholder="Full Name" autofocus #inputFullName="ngModel" autofocus required [ngModel]="docData?.fullName" minlength="3" maxlength="300">
+            </div>
+            <div class="alert alert-danger" role="alert" *ngIf="inputFullName.invalid && (inputFullName.dirty || inputFullName.touched)">
+                Please enter a valid name between 3 to 30 chars.
+              </div>
+                                </div>
+        
+                            <div class="form-group">
+                                <label class="col-md-2 col-sm-3 col-xs-12 control-label" style="color:#0F575C;" class="form-horizontal"><b>Address</b></label>
+                                <div class="col-md-10 col-sm-9 col-xs-12">
+  <input type="text" name="inputAddress" id="inputAddress" class="form-control" placeholder="Address" #inputAddress="ngModel"
+            required autofocus required [ngModel]="docData?.address" minlength="3" maxlength="200" ngModel>
+        </div>
+        <div class="alert alert-danger" role="alert" *ngIf="inputAddress.invalid && (inputAddress.dirty || inputAddress.touched)">
+          Please enter a valid Address.
+        </div>                                </div>
+                            <div class="form-group">
+                                <label class="col-md-2 col-sm-3 col-xs-12 control-label" style="color:#0F575C;" class="form-horizontal"><b>Car Number</b></label>
+                                <div class="col-md-10 col-sm-9 col-xs-12">
+ <input type="text" name="inputCarNo" id="inputCarNo" class="form-control" placeholder="Car Number" #inputCarNo="ngModel"
+            required autofocus required [ngModel]="docData?.carNumber" minlength="5" maxlength="20" ngModel>
+        </div>
+        <div class="alert alert-danger" role="alert" *ngIf="inputCarNo.invalid && (inputCarNo.dirty || inputCarNo.touched)">
+          Please enter a valid Car Number.
+        </div>                                </div>
+                            <div class="form-group">
+                                <label class="col-md-2 col-sm-3 col-xs-12 control-label" style="color:#0F575C;" class="form-horizontal"><b>Password</b></label>
+                                <div class="col-md-10 col-sm-9 col-xs-12">
+    <input type="password" name="inputPassword" id="inputPassword" class="form-control" placeholder="Password" #inputPassword="ngModel" required autofocus  [ngModel]="docData?.password" minlength="3" maxlength="300">
+            </div>
+            <div class="alert alert-danger" role="alert" *ngIf="inputPassword.invalid && (inputPassword.dirty || inputPassword.touched)">
+                Please enter a valid password between 3 to 30 chars.
+              </div>                                </div>
+                        </fieldset>
+                        <fieldset class="fieldset">
+                            <h3 class="fieldset-title" style="color:#d17d00;"><b>Contact Info</b></h3>
+                            <div class="form-group">
+                                <label class="col-md-2 col-sm-3 col-xs-12 control-label" style="color:#0F575C;" class="form-horizontal"><b>Email</b></label>
+                                <div class="col-md-10 col-sm-9 col-xs-12">
+ <input type="email" id="inputEmail" name="inputEmail" class="form-control" placeholder="Email address" #inputEmail="ngModel" required autofocus [ngModel]="docData?.email" email>
+            </div>
+            <div class="alert alert-danger" role="alert" *ngIf="inputEmail.invalid && (inputEmail.dirty || inputEmail.touched)">
+                Please enter a valid email.
+              </div>                                </div>
+                            <div class="form-group">
+                                <label class="col-md-2 col-sm-3 col-xs-12 control-label" style="color:#0F575C;" class="form-horizontal"><b>Phone Nmuber</b></label>
+                                <div class="col-md-10 col-sm-9 col-xs-12">
+   <input type="text" name="inputPhoneNo" id="inputPhoneNo" class="form-control" placeholder="Phone Number" #inputPhoneNo="ngModel"
+            required autofocus required [ngModel]="docData?.phone"  minlength="10" maxlength="20" ngModel>
+        </div>
+        <div class="alert alert-danger" role="alert" *ngIf="inputPhoneNo.invalid && (inputPhoneNo.dirty || inputPhoneNo.touched)">
+          Please enter a valid phone Number.
+        </div>                                </div>
+                        </fieldset>
+                       
+
+                        <div class="form-group">
+                            <div class="col-md-10 col-sm-9 col-xs-12 col-md-push-2 col-sm-push-3 col-xs-push-0">
+    <div *ngIf="!settingsForm.valid else showSubmitButton">
+                <button class="btn btn-lg btn-block btn-block" type="submit" >Update</button>
+              </div>
+              <ng-template #showSubmitButton>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Update</button>
+              </ng-template>                            </div>
+                        </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+    </form>
+        </span>
+  </ng-template>
+</main>
