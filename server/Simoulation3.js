@@ -7,3 +7,4 @@
 //random point at city => distance 
 //map = parking(x,y) gates(x,y) 
 
+console.log("yes");
