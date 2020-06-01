@@ -1,0 +1,14 @@
+<agm-map [latitude]="location.latitude" [longitude]="location.longitude" [zoom]="location.zoom" (mapClick)="addMarker($event.coords.lat, $event.coords.lng)">
+    <!-- ... -->
+    <agm-direction 
+        [origin]="origin" 
+        [destination]="destination"
+    ></agm-direction>
+</agm-map>
+<div>
+     Distance: {{distance}}
+</div>
+<!-- ... -->
+<div class="alert alert-success">
+    <strong>Success!</strong> Indicates a successful or positive action.
+  </div>

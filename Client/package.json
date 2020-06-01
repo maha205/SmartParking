@@ -11,6 +11,7 @@
   },
   "private": true,
   "dependencies": {
+    "@agm/core": "^1.1.0",
     "@angular/animations": "~9.0.0-rc.6",
     "@angular/common": "~9.0.0-rc.6",
     "@angular/compiler": "~9.0.0-rc.6",
@@ -20,6 +21,7 @@
     "@angular/platform-browser": "~9.0.0-rc.6",
     "@angular/platform-browser-dynamic": "~9.0.0-rc.6",
     "@angular/router": "~9.0.0-rc.6",
+    "agm-direction": "^0.7.9",
     "core-js": "^2.5.7",
     "rxjs": "~6.5.3",
     "webpack": "^4.43.0",

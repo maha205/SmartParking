@@ -16,6 +16,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthGuard} from './services/auth-guard.service';
 import { HomeComponent } from './home/home.component';
 import { HowitworksComponent } from './howitworks/howitworks.component';
+import { MapsearchComponent } from './mapsearch/mapsearch.component';
+import { AgmDirectionModule } from 'agm-direction';
+import {AgmCoreModule} from '@agm/core'
+
 
 @NgModule({
   declarations: [
@@ -29,10 +33,15 @@ import { HowitworksComponent } from './howitworks/howitworks.component';
     ReportsComponent,
     DashboardComponent,
     HomeComponent,
-    HowitworksComponent
+    HowitworksComponent,
+    MapsearchComponent
   ],
   imports: [
     BrowserModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDm3GGXnDDHM6K9DB8aUERh2HR0qpFXJGY',
+      libraries: ["places",'geometry']}),
+    AgmDirectionModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
