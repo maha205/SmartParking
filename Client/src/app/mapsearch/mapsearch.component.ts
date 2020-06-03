@@ -1,6 +1,5 @@
 import { Component, OnInit ,ViewChild} from '@angular/core';
-//import { MapsAPILoader, AgmMap } from '@agm/core';
-import {AgmMap, MouseEvent,MapsAPILoader  } from '@agm/core';  
+import { MapsAPILoader, AgmMap } from '@agm/core';
 declare var google: any;
 
 interface Marker {
@@ -9,6 +8,7 @@ interface Marker {
   label?: string;
   draggable: boolean;
 }
+
 interface Location {
   lat: number;
   lng: number;
@@ -68,7 +68,6 @@ export class MapsearchComponent implements OnInit {
       this.distance = this.calculateDistance(this.origin, this.destination);
     });
   }
-  
 
 
   updateOnMap() {
@@ -120,16 +119,16 @@ export class MapsearchComponent implements OnInit {
   }
 
   
-  // findAddressByCoordinates() {
-  //   this.geocoder.geocode({
-  //     'location': {
-  //       lat: this.location.marker.lat,
-  //       lng: this.location.marker.lng
-  //     }
-  //   }, (results, status) => {
-  //     this.decomposeAddressComponents(results);
-  //   });
-  // }
+  findAddressByCoordinates() {
+    this.geocoder.geocode({
+      'location': {
+        lat: this.location.marker.lat,
+        lng: this.location.marker.lng
+      }
+    }, (results, status) => {
+      this.decomposeAddressComponents(results);
+    });
+  }
 
   decomposeAddressComponents(addressArray) {
     if (addressArray.length == 0) { return false; }
