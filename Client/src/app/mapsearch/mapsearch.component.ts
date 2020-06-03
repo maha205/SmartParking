@@ -12,6 +12,8 @@ interface Marker {
 interface Location {
   lat: number;
   lng: number;
+  latsearch:number;
+  lngsearch:number;
   viewport?: Object;
   zoom: number;
   address_level_1?: string;
@@ -28,6 +30,7 @@ interface Location {
   styleUrls: ['./mapsearch.component.css']
 })
 export class MapsearchComponent implements OnInit {
+ 
   destination: any;
   origin: any;
   distance: any;
@@ -49,6 +52,8 @@ export class MapsearchComponent implements OnInit {
   public location: Location = {
     lat: 32.6950,
     lng: 35.2820,
+    latsearch:0,
+    lngsearch:0,
     marker: {
       lat: 32.6950,
       lng: 35.2820,
@@ -105,6 +110,8 @@ export class MapsearchComponent implements OnInit {
         if (results[0].geometry.location) {
           this.location.lat = results[0].geometry.location.lat();
           this.location.lng = results[0].geometry.location.lng();
+          this.location.latsearch = results[0].geometry.location.lat();
+          this.location.lngsearch = results[0].geometry.location.lng();
           this.location.marker.lat = results[0].geometry.location.lat();
           this.location.marker.lng = results[0].geometry.location.lng();
           this.location.marker.draggable = true;
@@ -182,4 +189,3 @@ export class MapsearchComponent implements OnInit {
 }
 
 }
-
