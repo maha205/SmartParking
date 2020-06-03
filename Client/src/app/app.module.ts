@@ -20,6 +20,7 @@ import { MapsearchComponent } from './mapsearch/mapsearch.component';
 import { AgmDirectionModule } from 'agm-direction';
 import {AgmCoreModule} from '@agm/core'
 import {AgmMap, MouseEvent,MapsAPILoader  } from '@agm/core';
+import { TestComponent } from './test/test.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +34,8 @@ import {AgmMap, MouseEvent,MapsAPILoader  } from '@agm/core';
     DashboardComponent,
     HomeComponent,
     HowitworksComponent,
-    MapsearchComponent
+    MapsearchComponent,
+    TestComponent
   ],
   imports: [
     BrowserModule,

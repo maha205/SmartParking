@@ -76,12 +76,19 @@ export class MapsearchComponent implements OnInit {
 
 
   updateOnMap() {
-    let full_address: string = this.location.address_level_1 || ""
-    if (this.location.address_level_2) { full_address = full_address + " " + this.location.address_level_2; }
-    if (this.location.address_state) { full_address = full_address + " " + this.location.address_state; }
-    if (this.location.address_country) { full_address = full_address + " " + this.location.address_country; }
+    let full_address1: string = this.location.address_level_1 || ""
+    if (this.location.address_level_2) { full_address1 = full_address1 + " " + this.location.address_level_2; }
+    if (this.location.address_state) { full_address1 = full_address1 + " " + this.location.address_state; }
+    if (this.location.address_country) { full_address1 = full_address1 + " " + this.location.address_country; }
 
-    this.findLocation(full_address);
+    this.findLocation(full_address1);    
+    
+    let full_address2: string = this.location.address_level_1 || ""
+    if (this.location.address_level_2) { full_address2 = full_address2 + " " + this.location.address_level_2; }
+    if (this.location.address_state) { full_address2 = full_address2 + " " + this.location.address_state; }
+    if (this.location.address_country) { full_address2 = full_address2 + " " + this.location.address_country; }
+
+    this.findLocation(full_address2);
   }
 
   findLocation(address) {

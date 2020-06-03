@@ -10,6 +10,7 @@ import { AuthGuard } from './services/auth-guard.service'
 import { HomeComponent } from './home/home.component';
 import { HowitworksComponent } from './howitworks/howitworks.component';
 import { MapsearchComponent } from './mapsearch/mapsearch.component';
+import { TestComponent } from './test/test.component';
 
 const routes: Routes = [
    { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -25,6 +26,7 @@ const routes: Routes = [
   { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
   { path: 'reports', component: ReportsComponent, canActivate: [AuthGuard] },
   { path: 'mapsearch', component: MapsearchComponent, canActivate: [AuthGuard] },
+  { path: 'test', component:TestComponent, canActivate: [AuthGuard] },
    { path: '**', redirectTo: '/login', pathMatch: 'full' }
  //  { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ];
