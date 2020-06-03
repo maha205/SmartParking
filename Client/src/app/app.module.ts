@@ -19,8 +19,7 @@ import { HowitworksComponent } from './howitworks/howitworks.component';
 import { MapsearchComponent } from './mapsearch/mapsearch.component';
 import { AgmDirectionModule } from 'agm-direction';
 import {AgmCoreModule} from '@agm/core'
-
-
+import {AgmMap, MouseEvent,MapsAPILoader  } from '@agm/core';
 @NgModule({
   declarations: [
     AppComponent,

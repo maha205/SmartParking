@@ -1,14 +1,31 @@
-<agm-map [latitude]="location.latitude" [longitude]="location.longitude" [zoom]="location.zoom" (mapClick)="addMarker($event.coords.lat, $event.coords.lng)">
-    <!-- ... -->
-    <agm-direction 
+<br>
+<br>
+<div class="container">
+  <div class="row my-5 d-flex flex-center">
+    <div class="col-md-6">
+      <agm-map #map [mapTypeId]="'hybrid'" [latitude]="location.lat" [longitude]="location.lng" [zoom]="location.zoom" style="height: 300px">
+        <!-- <agm-marker [latitude]="location.lat" [longitude]="location.lng"></agm-marker> -->
+        <agm-direction 
         [origin]="origin" 
         [destination]="destination"
     ></agm-direction>
-</agm-map>
-<div>
-     Distance: {{distance}}
-</div>
-<!-- ... -->
-<div class="alert alert-success">
-    <strong>Success!</strong> Indicates a successful or positive action.
+      </agm-map>
+      <div>
+        Distance: {{distance}}
+   </div>
+    </div>
+    <div class="col-md-6">
+      <div class="md-form">
+        <input type="text" [(ngModel)]='location.address_level_1' class="form-control" id="searchField"
+          mdbInput>
+        <label for="searchField">Search location</label>
+
+      </div>
+      <div class="row">
+        <div class="col-md-12 d-flex flex-center">
+          <button mdbBtn color="primary" mdbWavesLight (click)='updateOnMap()' type="submit">Search</button>
+        </div>
+      </div>
+    </div>
   </div>
+</div>
