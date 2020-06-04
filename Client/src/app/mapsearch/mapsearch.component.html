@@ -6,7 +6,7 @@
     <div class="col-md-6">
       <agm-map #map [mapTypeId]="'hybrid'" [latitude]="location.lat" [longitude]="location.lng" [zoom]="location.zoom" style="height: 300px">
         <!-- <agm-marker [latitude]="location.lat" [longitude]="location.lng"></agm-marker> -->
-        <agm-direction 
+            <agm-direction 
         [origin]="origin" 
         [destination]="destination"
     ></agm-direction>
@@ -24,16 +24,14 @@
     <div class="col-md-6">
       <div class="md-form">
         <input type="text" [(ngModel)]='location.address_level_1' class="form-control" id="searchField"
-          mdbInput>      
-          <br/>
-          <br/>  
-          <input type="text" [(ngModel)]='location.address_level_2' class="form-control" id="searchField"
           mdbInput>
+        <label for="searchField">Search location</label>
 
       </div>
       <div class="row">
         <div class="col-md-12 d-flex flex-center">
           <button mdbBtn color="primary" mdbWavesLight (click)='updateOnMap()' type="submit">Search</button>
+    <a routerLink="/test">Search</a>
         </div>
       </div>
     </div>

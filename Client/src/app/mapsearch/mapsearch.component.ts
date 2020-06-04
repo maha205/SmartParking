@@ -1,5 +1,7 @@
 import { Component, OnInit ,ViewChild} from '@angular/core';
 import { MapsAPILoader, AgmMap } from '@agm/core';
+import{ GlobalConstants } from '../common/global-constants';
+
 declare var google: any;
 
 interface Marker {
@@ -27,36 +29,44 @@ interface Location {
 @Component({
   selector: 'app-mapsearch',
   templateUrl: './mapsearch.component.html',
-  styleUrls: ['./mapsearch.component.css']
+   styleUrls: ['./mapsearch.component.css']
 })
 export class MapsearchComponent implements OnInit {
- 
+
   destination: any;
   origin: any;
   distance: any;
 
   ngOnInit(){
-    this.origin = { 
-      lat: 32.6950, 
-      lng: 35.2820 
-    };
-  this.destination = { 
-      lat: 32.6050, 
-      lng: 35.2020 
-   };
+    this.distance = 0;
+    if (navigator)
+    {
+    navigator.geolocation.getCurrentPosition( pos => {
+
+      this.origin={
+        lat :  +pos.coords.latitude,
+        lng : +pos.coords.longitude
+      }
+      this.destination = { 
+        lat :  +pos.coords.latitude,
+        lng : +pos.coords.longitude
+     };
+      });
+    }
+
+    GlobalConstants.setOrigin(this.origin) ;
+
   }
-
-
 
   geocoder: any;
   public location: Location = {
-    lat: 32.6950,
-    lng: 35.2820,
+    lat: 0,
+    lng: 0,
     latsearch:0,
     lngsearch:0,
     marker: {
-      lat: 32.6950,
-      lng: 35.2820,
+      lat: 0,
+      lng: 0,
       draggable: true
     },
     zoom: 5
@@ -66,29 +76,26 @@ export class MapsearchComponent implements OnInit {
   @ViewChild(AgmMap, { static: true }) map: AgmMap;
 
   constructor(public mapsApiLoader: MapsAPILoader) {
-    this.mapsApiLoader = mapsApiLoader;
+    if (navigator)
+    {
+    navigator.geolocation.getCurrentPosition( pos => {
+      this.origin.lat=  +pos.coords.latitude,
+      this.origin.lng= +pos.coords.longitude
+      });
+    }
 
     this.mapsApiLoader.load().then(() => {
       this.geocoder = new google.maps.Geocoder();
-      this.distance = this.calculateDistance(this.origin, this.destination);
     });
   }
 
 
   updateOnMap() {
-    let full_address1: string = this.location.address_level_1 || ""
-    if (this.location.address_level_2) { full_address1 = full_address1 + " " + this.location.address_level_2; }
-    if (this.location.address_state) { full_address1 = full_address1 + " " + this.location.address_state; }
-    if (this.location.address_country) { full_address1 = full_address1 + " " + this.location.address_country; }
-
-    this.findLocation(full_address1);    
-    
-    let full_address2: string = this.location.address_level_1 || ""
-    if (this.location.address_level_2) { full_address2 = full_address2 + " " + this.location.address_level_2; }
-    if (this.location.address_state) { full_address2 = full_address2 + " " + this.location.address_state; }
-    if (this.location.address_country) { full_address2 = full_address2 + " " + this.location.address_country; }
-
-    this.findLocation(full_address2);
+    let full_address: string = this.location.address_level_1 || ""
+    if (this.location.address_level_2) { full_address = full_address + " " + this.location.address_level_2; }
+    if (this.location.address_state) { full_address = full_address + " " + this.location.address_state; }
+    if (this.location.address_country) { full_address = full_address + " " + this.location.address_country; }
+    this.findLocation(full_address);
   }
 
   findLocation(address) {
@@ -117,8 +124,17 @@ export class MapsearchComponent implements OnInit {
         if (results[0].geometry.location) {
           this.location.lat = results[0].geometry.location.lat();
           this.location.lng = results[0].geometry.location.lng();
+
           this.location.latsearch = results[0].geometry.location.lat();
           this.location.lngsearch = results[0].geometry.location.lng();
+          this.destination.lat = this.location.latsearch;
+          this.destination.lng = this.location.lngsearch ;
+
+
+
+            this.distance = this.calculateDistance(this.origin, this.destination);
+
+
           this.location.marker.lat = results[0].geometry.location.lat();
           this.location.marker.lng = results[0].geometry.location.lng();
           this.location.marker.draggable = true;
@@ -130,6 +146,10 @@ export class MapsearchComponent implements OnInit {
         alert("Sorry, this search produced no results.");
       }
     });
+
+    GlobalConstants.setDestination(this.destination);
+    GlobalConstants.setDistance(this.distance)
+
   }
 
   

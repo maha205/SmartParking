@@ -11,7 +11,8 @@ import { HomeComponent } from './home/home.component';
 import { HowitworksComponent } from './howitworks/howitworks.component';
 import { MapsearchComponent } from './mapsearch/mapsearch.component';
 import { TestComponent } from './test/test.component';
-
+import { ParentComponent } from './parent/parent.component';
+import { ChildComponent } from './child/child.component';
 const routes: Routes = [
    { path: '', redirectTo: '/login', pathMatch: 'full' },
   // { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -27,6 +28,8 @@ const routes: Routes = [
   { path: 'reports', component: ReportsComponent, canActivate: [AuthGuard] },
   { path: 'mapsearch', component: MapsearchComponent, canActivate: [AuthGuard] },
   { path: 'test', component:TestComponent, canActivate: [AuthGuard] },
+  { path: 'parent', component:ParentComponent, canActivate: [AuthGuard] },
+  { path: 'child', component:ChildComponent, canActivate: [AuthGuard] },
    { path: '**', redirectTo: '/login', pathMatch: 'full' }
  //  { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ];

@@ -21,6 +21,8 @@ import { AgmDirectionModule } from 'agm-direction';
 import {AgmCoreModule} from '@agm/core'
 import {AgmMap, MouseEvent,MapsAPILoader  } from '@agm/core';
 import { TestComponent } from './test/test.component';
+import { ParentComponent } from './parent/parent.component';
+import { ChildComponent } from './child/child.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +37,9 @@ import { TestComponent } from './test/test.component';
     HomeComponent,
     HowitworksComponent,
     MapsearchComponent,
-    TestComponent
+    TestComponent,
+    ParentComponent,
+    ChildComponent
   ],
   imports: [
     BrowserModule,
