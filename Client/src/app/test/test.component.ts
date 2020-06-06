@@ -32,9 +32,9 @@ interface Location {
   styleUrls: ['./test.component.css']
 })
 export class TestComponent {
-  destination = GlobalConstants.destination;
-  origin = GlobalConstants.origin;
-  distance = GlobalConstants.distance;
+  destination : any;
+  origin :any ;
+  distance : any;
 
   originLat = GlobalConstants.origin.lat ;
   originLng = GlobalConstants.origin.lng ;  
@@ -60,18 +60,30 @@ export class TestComponent {
   @ViewChild(AgmMap, { static: true }) map: AgmMap;
 
   constructor(public mapsApiLoader: MapsAPILoader) {
-    if (navigator)
-    {
-    navigator.geolocation.getCurrentPosition( pos => {
-      this.origin.lat=  +pos.coords.latitude,
-      this.origin.lng= +pos.coords.longitude
-      });
-    }
-
+    this.destination = GlobalConstants.destination;
+    this.origin = GlobalConstants.origin;
     this.mapsApiLoader.load().then(() => {
       this.geocoder = new google.maps.Geocoder();
-    });
-  }
+      this.distance = this.calculateDistance(GlobalConstants.origin , GlobalConstants.destination);
+      GlobalConstants.setDistance(this.distance);
 
+    });
+
+
+  }
+  calculateDistance(point1, point2) {
+    const p1 = new google.maps.LatLng(
+    point1.lat,
+    point1.lng
+    );
+    const p2 = new google.maps.LatLng(
+    point2.lat,
+    point2.lng
+    );
+    
+    return (
+    google.maps.geometry.spherical.computeDistanceBetween(p1, p2)/1000
+    ).toFixed(2);
+}
 }
 

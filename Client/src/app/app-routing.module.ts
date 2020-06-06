@@ -30,6 +30,7 @@ const routes: Routes = [
   { path: 'test', component:TestComponent, canActivate: [AuthGuard] },
   { path: 'parent', component:ParentComponent, canActivate: [AuthGuard] },
   { path: 'child', component:ChildComponent, canActivate: [AuthGuard] },
+  
    { path: '**', redirectTo: '/login', pathMatch: 'full' }
  //  { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ];

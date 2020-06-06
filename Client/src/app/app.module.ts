@@ -23,6 +23,7 @@ import {AgmMap, MouseEvent,MapsAPILoader  } from '@agm/core';
 import { TestComponent } from './test/test.component';
 import { ParentComponent } from './parent/parent.component';
 import { ChildComponent } from './child/child.component';
+import { RandomMapComponent } from './random-map/random-map.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +40,8 @@ import { ChildComponent } from './child/child.component';
     MapsearchComponent,
     TestComponent,
     ParentComponent,
-    ChildComponent
+    ChildComponent,
+    RandomMapComponent,
   ],
   imports: [
     BrowserModule,

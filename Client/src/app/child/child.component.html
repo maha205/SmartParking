@@ -1,2 +1,41 @@
-<p>child works!</p>
-Title: {{distance}}
+<br>
+<br>
+<br>
+<div class="container">
+  <div class="row d-flex justify-content-center align-items-center">
+    <div class="col-md-7">
+      <div class="form d-flex justify-content-between">
+        <div class="image">
+          <img src="https://mdbootstrap.com/img/Photos/Others/sidenav2.jpg">
+        </div>
+        <form action="" class="my-form">
+          <h4 class="font-weight-bold mb-3">PARKTECH For Parking </h4>
+          <p class="mdb-color-text">To look for parking, please fill in these text fiels with your location and destination.</p>
+          <!-- Email address -->
+          <div class="md-form md-outline">
+            <i class="fas fa-map-pin"></i>
+                    <label >Location</label>
+                    <br/>
+                  <input type="text" id="origin-input" class="controls" (keydown.enter)="$event.preventDefault()"  placeholder={{address}} autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #origin>
+          </div>
+          <!-- Password -->
+          <div class="md-form md-outline">
+                      <br/>
+
+            <i class="fas fa-map-marker"></i>
+            <label>Destination</label>
+                    <br/>
+      <input type="text" id="destination-input" class="controls" (keydown.enter)="$event.preventDefault()"  placeholder="Enter a destination location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #destination>
+          </div>
+          <div class="space">
+            <div class="float-right">
+              <button class="btn btn-rounded" type="button" ><a   routerLink="/test" style="color:black">Search</a></button>
+            </div>
+          </div>
+          <hr>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+    <h5>Address: {{address}}</h5>
