@@ -1,30 +1,8 @@
-import { Component, OnInit ,ViewChild} from '@angular/core';
-import { MapsAPILoader, AgmMap } from '@agm/core';
 import{ GlobalConstants } from '../common/global-constants';
-
+import { MapsAPILoader, MouseEvent } from '@agm/core';
+import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
+import { Router } from '@angular/router';
 declare var google: any;
-
-interface Marker {
-  lat: number;
-  lng: number;
-  label?: string;
-  draggable: boolean;
-}
-
-interface Location {
-  lat: number;
-  lng: number;
-  latsearch:number;
-  lngsearch:number;
-  viewport?: Object;
-  zoom: number;
-  address_level_1?: string;
-  address_level_2?: string;
-  address_country?: string;
-  address_zip?: string;
-  address_state?: string;
-  marker?: Marker;
-}
 
 @Component({
   selector: 'app-mapsearch',
@@ -33,180 +11,126 @@ interface Location {
 })
 export class MapsearchComponent implements OnInit {
 
+  latitude: number;
+  longitude: number;
+  latitudeOrigin: number;
+  longitudeOrigin: number;
+  latitudeDestination: number;
+  longitudeDestination: number;
+  zoom: number;
+  address: string;
+  private geoCoder;
+
   destination: any;
   origin: any;
   distance: any;
 
-  ngOnInit(){
-    this.distance = 0;
-    if (navigator)
-    {
-    navigator.geolocation.getCurrentPosition( pos => {
 
-      this.origin={
-        lat :  +pos.coords.latitude,
-        lng : +pos.coords.longitude
-      }
-      this.destination = { 
-        lat :  +pos.coords.latitude,
-        lng : +pos.coords.longitude
-     };
+
+  @ViewChild('origin')
+  public originElementRef: ElementRef;
+
+  @ViewChild('destination')
+  public destinationElementRef: ElementRef;
+
+  constructor(
+    private mapsAPILoader: MapsAPILoader,
+    private ngZone: NgZone,
+    private _route: Router
+  ) { }
+
+
+  ngOnInit() {
+    //load Places Autocomplete
+    this.mapsAPILoader.load().then(() => {
+      this.setCurrentLocation();
+      this.geoCoder = new google.maps.Geocoder;
+
+      let autocompleteOrigin = new google.maps.places.Autocomplete(this.originElementRef.nativeElement);
+      let autocompleteDestination = new google.maps.places.Autocomplete(this.destinationElementRef.nativeElement);
+
+      autocompleteOrigin.addListener("place_changed", () => {
+        this.ngZone.run(() => {
+          //get the place result
+          let place: google.maps.places.PlaceResult = autocompleteOrigin.getPlace();
+
+          //verify result
+          if (place.geometry === undefined || place.geometry === null) {
+            return;
+          }
+
+          //set latitude, longitude and zoom
+          this.latitude = place.geometry.location.lat();
+          this.longitude = place.geometry.location.lng();
+          this.latitudeOrigin = place.geometry.location.lat();
+          this.longitudeOrigin = place.geometry.location.lng();
+          GlobalConstants.setLatitudeOrigin(place.geometry.location.lat());
+          GlobalConstants.setLongitudeOrigin(place.geometry.location.lng());
+          this.zoom = 12;
+        });
+      });
+
+      autocompleteDestination.addListener("place_changed", () => {
+        this.ngZone.run(() => {
+          //get the place result
+          let place: google.maps.places.PlaceResult = autocompleteDestination.getPlace();
+
+          //verify result
+          if (place.geometry === undefined || place.geometry === null) {
+            return;
+          }
+
+          //set latitude, longitude and zoom
+           this.latitude = place.geometry.location.lat();
+           this.longitude = place.geometry.location.lng();
+           this.latitudeDestination = place.geometry.location.lat();
+           this.longitudeDestination = place.geometry.location.lng();
+           GlobalConstants.setLatitudeDestination(place.geometry.location.lat());
+           GlobalConstants.setLongitudeDestination(place.geometry.location.lng());
+
+           
+           this.zoom = 12;
+        });
+      });
+
+    }); 
+  }
+
+  // Get Current Location Coordinates
+  private setCurrentLocation() {
+    if (navigator) {
+      navigator.geolocation.getCurrentPosition(position => {
+        this.latitude = +position.coords.latitude;
+        this.longitude = +position.coords.longitude;
+        GlobalConstants.setLatitudeOrigin(+position.coords.latitude);
+        GlobalConstants.setLongitudeOrigin(+position.coords.longitude);
+        this.getAddress(+position.coords.latitude, +position.coords.longitude);
       });
     }
+  } 
 
-    GlobalConstants.setOrigin(this.origin) ;
-
+  markerDragEnd($event: MouseEvent) {
+    console.log($event);
+    this.latitude = $event.coords.lat;
+    this.longitude = $event.coords.lng;
+    this.getAddress(this.latitude, this.longitude);
   }
 
-  geocoder: any;
-  public location: Location = {
-    lat: 0,
-    lng: 0,
-    latsearch:0,
-    lngsearch:0,
-    marker: {
-      lat: 0,
-      lng: 0,
-      draggable: true
-    },
-    zoom: 5
-  };
-
-  
-  @ViewChild(AgmMap, { static: true }) map: AgmMap;
-
-  constructor(public mapsApiLoader: MapsAPILoader) {
-    this.origin = GlobalConstants.origin ; 
-    this.destination = GlobalConstants.destination;
-
-    this.mapsApiLoader.load().then(() => {
-      this.geocoder = new google.maps.Geocoder();
-    });
-  }
-
-
-  updateOnMap() {
-    let full_address: string = this.location.address_level_1 || ""
-    if (this.location.address_level_2) { full_address = full_address + " " + this.location.address_level_2; }
-    if (this.location.address_state) { full_address = full_address + " " + this.location.address_state; }
-    if (this.location.address_country) { full_address = full_address + " " + this.location.address_country; }
-    this.findLocation(full_address);
-  }
-
-  findLocation(address) {
-    if (!this.geocoder) { this.geocoder = new google.maps.Geocoder(); }
-    this.geocoder.geocode({
-      'address': address
-    }, (results, status) => {
-      if (status == google.maps.GeocoderStatus.OK) {
-        for (var i = 0; i < results[0].address_components.length; i++) {
-          let types = results[0].address_components[i].types;
-
-          if (types.indexOf('locality') !== -1) {
-            this.location.address_level_2 = results[0].address_components[i].long_name;
-          }
-          if (types.indexOf('country') !== -1) {
-            this.location.address_country = results[0].address_components[i].long_name;
-          }
-          if (types.indexOf('postal_code') !== -1) {
-            this.location.address_zip = results[0].address_components[i].long_name;
-          }
-          if (types.indexOf('administrative_area_level_1') !== -1) {
-            this.location.address_state = results[0].address_components[i].long_name;
-          }
+  getAddress(latitude, longitude) {
+    this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
+      console.log(results);
+      console.log(status);
+      if (status === 'OK') {
+        if (results[0]) {
+          this.zoom = 12;
+          this.address = results[0].formatted_address;
+        } else {
+          window.alert('No results found');
         }
-
-        if (results[0].geometry.location) {
-          this.location.lat = results[0].geometry.location.lat();
-          this.location.lng = results[0].geometry.location.lng();
-
-          this.location.latsearch = results[0].geometry.location.lat();
-          this.location.lngsearch = results[0].geometry.location.lng();
-          this.destination.lat = this.location.latsearch;
-          this.destination.lng = this.location.lngsearch ;
-
-
-
-            this.distance = this.calculateDistance(GlobalConstants.origin, GlobalConstants.destination);
-
-
-          this.location.marker.lat = results[0].geometry.location.lat();
-          this.location.marker.lng = results[0].geometry.location.lng();
-          this.location.marker.draggable = true;
-          this.location.viewport = results[0].geometry.viewport;
-        }
-
-        this.map.triggerResize();
       } else {
-        alert("Sorry, this search produced no results.");
+        window.alert('Geocoder failed due to: ' + status);
       }
-    });
 
-    GlobalConstants.setDistance(this.distance)
-
-  }
-
-  
-  findAddressByCoordinates() {
-    this.geocoder.geocode({
-      'location': {
-        lat: this.location.marker.lat,
-        lng: this.location.marker.lng
-      }
-    }, (results, status) => {
-      this.decomposeAddressComponents(results);
     });
   }
-
-  decomposeAddressComponents(addressArray) {
-    if (addressArray.length == 0) { return false; }
-    let address = addressArray[0].address_components;
-
-    for (let element of address) {
-      if (element.length == 0 && !element['types']) { continue; }
-
-      if (element['types'].indexOf('street_number') > -1) {
-        this.location.address_level_1 = element['long_name'];
-        continue;
-      }
-      if (element['types'].indexOf('route') > -1) {
-        this.location.address_level_1 += ', ' + element['long_name'];
-        continue;
-      }
-      if (element['types'].indexOf('locality') > -1) {
-        this.location.address_level_2 = element['long_name'];
-        continue;
-      }
-      if (element['types'].indexOf('administrative_area_level_1') > -1) {
-        this.location.address_state = element['long_name'];
-        continue;
-      }
-      if (element['types'].indexOf('country') > -1) {
-        this.location.address_country = element['long_name'];
-        continue;
-      }
-      if (element['types'].indexOf('postal_code') > -1) {
-        this.location.address_zip = element['long_name'];
-        continue;
-      }
-    }
-  }
-
-  calculateDistance(point1, point2) {
-
-    
-    const p1 = new google.maps.LatLng(
-    point1.lat,
-    point1.lng
-    );
-    const p2 = new google.maps.LatLng(
-    point2.lat,
-    point2.lng
-    );
-    
-    return (
-    google.maps.geometry.spherical.computeDistanceBetween(p1, p2)/1000
-    ).toFixed(2);
-}
-
 }

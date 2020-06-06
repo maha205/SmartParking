@@ -1,0 +1,18 @@
+<br>
+<br>
+<div class="container">
+  <div class="row my-5 d-flex flex-center">
+    <div class="col-md-6">
+      <agm-map #map [mapTypeId]="'roadmap'" [latitude]="location.lat" [longitude]="location.lng" [zoom]="location.zoom" style="height: 300px">
+        <!-- <agm-marker [latitude]="location.lat" [longitude]="location.lng"></agm-marker> -->
+        <agm-direction 
+        [origin]="origin" 
+        [destination]="destination"
+    ></agm-direction>
+      </agm-map>
+      <div>
+        Distance: {{distance}}
+   </div>
+    </div>
+  </div>
+</div>

@@ -13,6 +13,9 @@ import { MapsearchComponent } from './mapsearch/mapsearch.component';
 import { TestComponent } from './test/test.component';
 import { ParentComponent } from './parent/parent.component';
 import { ChildComponent } from './child/child.component';
+import { ParkingMapComponent } from './parking-map/parking-map.component';
+
+
 const routes: Routes = [
    { path: '', redirectTo: '/login', pathMatch: 'full' },
   // { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -30,6 +33,7 @@ const routes: Routes = [
   { path: 'test', component:TestComponent, canActivate: [AuthGuard] },
   { path: 'parent', component:ParentComponent, canActivate: [AuthGuard] },
   { path: 'child', component:ChildComponent, canActivate: [AuthGuard] },
+  { path: 'parkingMap', component:ParkingMapComponent, canActivate: [AuthGuard] },
   
    { path: '**', redirectTo: '/login', pathMatch: 'full' }
  //  { path: '**', redirectTo: '/home', pathMatch: 'full' }
