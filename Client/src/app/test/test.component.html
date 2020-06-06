@@ -1,18 +1,56 @@
+
 <br>
 <br>
 <div class="container">
   <div class="row my-5 d-flex flex-center">
     <div class="col-md-6">
-      <agm-map #map [mapTypeId]="'roadmap'" [latitude]="location.lat" [longitude]="location.lng" [zoom]="location.zoom" style="height: 300px">
-        <!-- <agm-marker [latitude]="location.lat" [longitude]="location.lng"></agm-marker> -->
-        <agm-direction 
+      <agm-map #map [mapTypeId]="'roadmap'" [latitude]="origin.lat" [longitude]="origin.lng" [zoom]="origin.zoom" style="height: 300px">
+        <agm-direction  
         [origin]="origin" 
         [destination]="destination"
+        [renderOptions]="renderOptions" 
+        [markerOptions]="markerOptions">
     ></agm-direction>
+    <agm-circle [latitude]="origin.lat" [longitude]="origin.lng"
+    [(radius)]="circleRadius"
+    [fillColor]="'#3b5998'"
+    [circleDraggable]="false"
+    [editable]="false"
+    ></agm-circle>
       </agm-map>
+      <br>
       <div>
         Distance: {{distance}}
+     </div>
+      <!-- <div>
+        Distance: {{distance}}
    </div>
+   <div>
+    lat: {{location.latsearch}}
+</div>
+<div>
+  lng: {{location.lngsearch}}
+</div> -->
+<br>
+<div>
+  random lat: {{randompoint.randomlat}}
+</div>
+<div>
+  random lng: {{randompoint.randomlng}}
+</div>
     </div>
+    <!-- <div class="col-md-6">
+      <div class="md-form">
+        <input type="text" [(ngModel)]='location.address_level_1' class="form-control" id="searchField"
+          mdbInput>
+        <label for="searchField">Search location</label>
+
+      </div>
+      <div class="row">
+        <div class="col-md-12 d-flex flex-center">
+          <button mdbBtn color="primary" mdbWavesLight (click)='updateOnMap()' type="submit">Search</button>
+        </div>
+      </div>
+    </div> -->
   </div>
 </div>

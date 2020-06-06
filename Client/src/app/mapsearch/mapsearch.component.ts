@@ -11,6 +11,11 @@ declare var google: any;
 })
 export class MapsearchComponent implements OnInit {
 
+  error: boolean = false;
+  errorMessage: String = "";
+  dataLoading: boolean = false;
+  private querySubscription;
+
   latitude: number;
   longitude: number;
   latitudeOrigin: number;
@@ -133,4 +138,15 @@ export class MapsearchComponent implements OnInit {
 
     });
   }
+
+  
+  search(formData){
+  this._route.navigate(['/parkingMap']);
+}
+
+ngOnDestroy(){
+  if (this.querySubscription) {
+    this.querySubscription.unsubscribe();
+}
+}
 }

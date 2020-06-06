@@ -54,6 +54,20 @@ export class ParkingMapComponent  {
     zoom: 5
   };
 
+  public markerOptions = {
+    origin: {
+        icon: 'http://maps.google.com/mapfiles/ms/micons/cabs.png',
+        draggable: false,
+    },
+    destination: {
+      icon: 'http://maps.google.com/mapfiles/ms/micons/parkinglot.png',
+      opacity: 0.8,
+    },
+}
+
+public renderOptions = {
+  suppressMarkers: true,
+}
 
   @ViewChild(AgmMap, { static: true }) map: AgmMap;
 

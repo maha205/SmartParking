@@ -1,39 +1,58 @@
 <br>
 <br>
 <br>
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
 <div class="container">
   <div class="row d-flex justify-content-center align-items-center">
     <div class="col-md-7">
       <div class="form d-flex justify-content-between">
-        <div class="image">
-          <img src="https://mdbootstrap.com/img/Photos/Others/sidenav2.jpg">
-        </div>
-        <form action="" class="my-form">
+        <form class="my-form" #searchForm="ngForm" (ngSubmit)="search(searchForm.value)"> 
+
           <h4 class="font-weight-bold mb-3">PARKTECH For Parking </h4>
           <p class="mdb-color-text">To look for parking, please fill in these text fiels with your location and destination.</p>
           <!-- Email address -->
           <div class="md-form md-outline">
             <i class="fas fa-map-pin"></i>
-                    <label >Location</label>
+                    <label><i class ="fas fa"></i> Location</label>
                     <br/>
-                  <input type="text" id="origin-input" class="controls" (keydown.enter)="$event.preventDefault()"  placeholder={{address}} autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #origin>
+                  <input type="text" id="origin-input" class="controls" (keydown.enter)="$event.preventDefault()"  placeholder={{address}} autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #origin >
           </div>
           <!-- Password -->
           <div class="md-form md-outline">
-                      <br/>
-
+            <br/>
             <i class="fas fa-map-marker"></i>
-            <label>Destination</label>
+            <label><i class ="fas fa"></i> Destination</label>
                     <br/>
-      <input type="text" id="destination-input" class="controls" (keydown.enter)="$event.preventDefault()"  placeholder="Enter a destination location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #destination>
+      <input type="text" [(ngModel)]='listFilter' id="destinationinput" name="destinationinput" class="controls" (keydown.enter)="$event.preventDefault()"  placeholder="Enter a destination location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #destination>
           </div>
+
+          
+
+<br>
+<label class="radio-inline"><input type="radio" name="optradio" checked> <i class="fas fa-parking"></i></label>
+<label class="radio-inline"><input type="radio" name="optradio"><i class="fas fa-wheelchair"></i></label>
+
+
           <div class="space">
             <div class="float-right">
-              <button class="btn btn-rounded" type="button" ><a   routerLink="/parkingMap" style="color:black">Search</a></button>
-            </div>
+      <button class="btn btn-lg btn-block btn-block" [disabled]="!listFilter" type="submit" >Search</button>
+
+       </div>
           </div>
+          
           <hr>
         </form>
+
+         <div class="image">
+    <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+      <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
+        (dragEnd)="markerDragEnd($event)"></agm-marker>
+    </agm-map>        </div>
       </div>
     </div>
   </div>

@@ -3,13 +3,22 @@
 <div class="container">
   <div class="row my-5 d-flex flex-center">
     <div class="col-md-6">
-      <agm-map #map [mapTypeId]="'roadmap'" [latitude]="location.lat" [longitude]="location.lng" [zoom]="location.zoom" style="height: 300px">
-        <!-- <agm-marker [latitude]="location.lat" [longitude]="location.lng"></agm-marker> -->
-        <agm-direction 
+
+   <agm-map #map [mapTypeId]="'roadmap'" [latitude]="origin.lat" [longitude]="origin.lng" [zoom]="origin.zoom" style="height: 300px">
+        <agm-direction  
         [origin]="origin" 
         [destination]="destination"
+        [renderOptions]="renderOptions" 
+        [markerOptions]="markerOptions">
     ></agm-direction>
+    <agm-circle [latitude]="origin.lat" [longitude]="origin.lng"
+    [(radius)]="circleRadius"
+    [fillColor]="'#3b5998'"
+    [circleDraggable]="false"
+    [editable]="false"
+    ></agm-circle>
       </agm-map>
+
       <div>
         Distance: {{distance}}
    </div>
