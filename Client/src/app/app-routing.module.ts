@@ -14,7 +14,8 @@ import { TestComponent } from './test/test.component';
 import { ParentComponent } from './parent/parent.component';
 import { ChildComponent } from './child/child.component';
 import { ParkingMapComponent } from './parking-map/parking-map.component';
-
+import { RandomMapComponent } from './random-map/random-map.component';
+import { ContactUsComponent } from './contact-us/contact-us.component';
 
 const routes: Routes = [
    { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -34,6 +35,9 @@ const routes: Routes = [
   { path: 'parent', component:ParentComponent, canActivate: [AuthGuard] },
   { path: 'child', component:ChildComponent, canActivate: [AuthGuard] },
   { path: 'parkingMap', component:ParkingMapComponent, canActivate: [AuthGuard] },
+  { path: 'randomMap', component:RandomMapComponent, canActivate: [AuthGuard] },
+  { path: 'contactus', component:ContactUsComponent, canActivate: [AuthGuard] },
+  
   
    { path: '**', redirectTo: '/login', pathMatch: 'full' }
  //  { path: '**', redirectTo: '/home', pathMatch: 'full' }

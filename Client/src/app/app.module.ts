@@ -25,6 +25,7 @@ import { ParentComponent } from './parent/parent.component';
 import { ChildComponent } from './child/child.component';
 import { RandomMapComponent } from './random-map/random-map.component';
 import { ParkingMapComponent } from './parking-map/parking-map.component';
+import { ContactUsComponent } from './contact-us/contact-us.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,6 +45,7 @@ import { ParkingMapComponent } from './parking-map/parking-map.component';
     ChildComponent,
     RandomMapComponent,
     ParkingMapComponent,
+    ContactUsComponent,
   ],
   imports: [
     BrowserModule,
