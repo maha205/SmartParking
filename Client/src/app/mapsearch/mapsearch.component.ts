@@ -2,6 +2,7 @@ import{ GlobalConstants } from '../common/global-constants';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
+import { BackendService } from '../services/backend.service';
 declare var google: any;
 
 @Component({
@@ -15,6 +16,8 @@ export class MapsearchComponent implements OnInit {
   errorMessage: String = "";
   dataLoading: boolean = false;
   private querySubscription;
+  savedChanges: boolean = false;
+  docData;
 
   latitude: number;
   longitude: number;
@@ -41,7 +44,8 @@ export class MapsearchComponent implements OnInit {
   constructor(
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
-    private _route: Router
+    private _route: Router,
+    private _backendService: BackendService
   ) { }
 
 
@@ -57,8 +61,8 @@ export class MapsearchComponent implements OnInit {
       autocompleteOrigin.addListener("place_changed", () => {
         this.ngZone.run(() => {
           //get the place result
-          let place: google.maps.places.PlaceResult = autocompleteOrigin.getPlace();
-
+       //   let place: google.maps.places.PlaceResult = autocompleteOrigin.getPlace();
+          let place :any ;
           //verify result
           if (place.geometry === undefined || place.geometry === null) {
             return;
@@ -141,7 +145,30 @@ export class MapsearchComponent implements OnInit {
 
   
   search(formData){
-  this._route.navigate(['/parkingMap']);
+  //this._route.navigate(['/parkingMap']);
+  this.dataLoading = true;
+  this.querySubscription = this._backendService.searchParking(formData).subscribe((res) => {
+    if (res["errorCode"] > 0) {
+        this.error = false;
+        this.errorMessage = "";
+        this.dataLoading = false;
+        this.savedChanges = true;
+        window.localStorage.setItem('token', res["data"].token);
+        this._route.navigate(['/parkingMap']);
+    } else {
+        this.error = true;
+        this.errorMessage = res["errorMessage"];
+        this.dataLoading = false;
+    }
+},
+    (error) => {
+        this.error = true;
+        this.errorMessage = error.message;
+        this.dataLoading = false;
+    },
+    () => {
+        this.dataLoading = false;
+    });
 }
 
 ngOnDestroy(){

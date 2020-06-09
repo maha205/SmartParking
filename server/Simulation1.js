@@ -71,9 +71,11 @@ async function getParkings()
   //--------------------return all the Parking from MySql - DataBase----------------------
   function getallParking(){
     return new Promise((resolve,reject) => {
+      address = "Haifa"
       con.query(
-        "SELECT * FROM Parking " , 
+        "SELECT * FROM Parking WHERE address ='"+address+"';", 
         (err,result) => {
+          console.log(result);
           return err ? reject : resolve(result);
         }
       );

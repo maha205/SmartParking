@@ -63,7 +63,6 @@ app.post('/login', jsonParser, function (req, res) {
     var dbFunctions = require('./models/connector');
     dbFunctions.loginUser(req,res);
 });
-
 app.get('/user', jsonParser, function (req, res) {
     //if(valFunctions.checkInputDataNULL(req,res)) return false;
     //if(valFunctions.checkInputDataQuality(req,res)) return false;
@@ -99,6 +98,14 @@ app.get('/getlocation', jsonParser, function (req, res) {
     var userEmail = valFunctions.checkJWTToken(req,res);
     if(!userEmail) return false;
     dbFunctions.getLocation(userEmail,res);
+});
+app.post('/searchparking', jsonParser, function (req, res) {
+    if(valFunctions.checkInputDataNULL(req,res)) return false;
+    if(valFunctions.checkInputDataQuality(req,res)) return false;
+    //if(valFunctions.checkJWTToken(req,res)) return false;
+    //if(valFunctions.checkUserAuthRole(req,res)) return false;
+    var dbFunctions = require('./models/connector');
+    dbFunctions.searchParking(req,res);
 });
 app.use('/', (req, res) => res.send("Welcome To Smart Parking App User !"));
 app.listen(process.env.PORT, () => console.log('Server is ready on localhost:' + process.env.PORT));
