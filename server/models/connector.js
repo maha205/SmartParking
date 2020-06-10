@@ -22,7 +22,7 @@ var resultsFound = {
 
 var simoulation1Result={
   "praking" : "" ,
-   "result":""
+  "result":""
 };
 var simoulation2Result={
   "praking" : "" ,
@@ -204,23 +204,23 @@ module.exports = {
         });
       });
   },
-  searchParking: function (req, res) {
+  searchParking:  function (req, res) {
       var address = req.body.destinationinput ;
-      this.Simulation1(address);
-      res.send(resultsFound);
 
-      
-  },
+      Simulation1(address).then(()=>{
+        console.log("yes");
+        res.send(resultsFound); 
 
-  //Function to simulation 1 
-  Simulation1 : function(address)
+      });
+
+  
+   async function Simulation1(address)
   {
     pool.getConnection(function (err, con) {
       if (err) throw err; // not connected!
-
-
+      simulation(address);
     ////////////////////////////////////-START-//////////////////////////////
-(async () => { 
+  async function simulation (address){ 
   await getParkings(address); 
   var countFounds = 0;
   var totalCarsAmount = 0 ;
@@ -248,9 +248,157 @@ module.exports = {
    console.log(totalCarsAmount);
    console.log("The numbers of cars that finded parking are:");
    console.log(countFounds);
-   simoulation1Result["result"]= (totalCarsAmount - countFounds)/1000 ;
+   simoulation1Result["result"]= (countFounds/totalCarsAmount)*100 ;
    console.log(simoulation1Result);
    resultsFound["data"] = simoulation1Result ;
+
+}
+
+//-------------------build the list of all the parkings from mySql and build the parking Object for each parking ----------------------
+async function getParkings(address)
+{
+    const Parking = await getallParking(address);
+    let i ;
+    for( i in Parking){
+      // parking object
+      let parkingObj = {  
+      id :   Parking[i]["id"] ,
+      address :   Parking[i]["address"] ,
+      parking_slot:  Parking[i]["parking_slot"] , 
+      entries : [Parking[i]["gate1"],Parking[i]["gate2"],Parking[i]["gate3"],Parking[i]["gate4"]], 
+      cars: [],
+      count: function(h){// amount of free slots
+           let cnt = 0;
+           this.cars.map(c=>{
+               if(c.from<=h && c.to>=h){
+                   cnt++;
+               }
+           });
+           return this.parking_slot - cnt;
+      }   }
+      parkings.push(parkingObj);
+     }
+}
+  //--------------------return all the Parking from MySql - DataBase----------------------
+  function getallParking(address){
+    return new Promise((resolve,reject) => {
+      con.query(
+        "SELECT * FROM Parking WHERE address ='"+address+"';", 
+        (err,result) => {
+          console.log(result);
+          return err ? reject : resolve(result);
+          // if (error) {
+          //   reject ;
+          //   resultsNotFound["errorMessage"] = "Something went wrong with Server.";
+          //   return res.send(resultsNotFound);
+          // }
+          // else{
+          //   resolve(result);
+          // }
+         
+        }
+      );
+    });
+  }
+/////////////////////////////////////////////////////RANDOM FUNCTION//////////////////////////////////////////////////////////
+
+//--------------------return random car Object----------------------
+function GetRandomCar(){
+  let entry = Math.floor(Math.random() * 4) + 1; //entry random [1-4]
+  let from = Math.floor(Math.random() * 23) + 1;//from hour random [1-24]
+  let longTimeInParking;
+  
+  //    let to = from + longTimeInParking ; let max 24 du to the day 
+  if(from == 1) {longTimeInParking = Math.floor(Math.random() * 23) + 1;}//how long time hour the user want to park random [1-23]
+  if(from == 2) {longTimeInParking = Math.floor(Math.random() * 22) + 1;}//how long time hour the user want to park random [1-22]
+  if(from == 3) {longTimeInParking = Math.floor(Math.random() * 21) + 1;}//how long time hour the user want to park random [1-21]
+  if(from == 4) {longTimeInParking = Math.floor(Math.random() * 20) + 1;}//how long time hour the user want to park random [1-20]
+  if(from == 5) {longTimeInParking = Math.floor(Math.random() * 19) + 1;}//how long time hour the user want to park random [1-19]
+  if(from == 6) {longTimeInParking = Math.floor(Math.random() * 18) + 1;}//how long time hour the user want to park random [1-18]
+  if(from == 7) {longTimeInParking = Math.floor(Math.random() * 17) + 1;}//how long time hour the user want to park random [1-17]
+  if(from == 8) {longTimeInParking = Math.floor(Math.random() * 16) + 1;}//how long time hour the user want to park random [1-16]
+  if(from == 9) {longTimeInParking = Math.floor(Math.random() * 15) + 1;}//how long time hour the user want to park random [1-15]
+  if(from == 10) {longTimeInParking = Math.floor(Math.random() * 14) + 1;}//how long time hour the user want to park random [1-14]
+  if(from == 11) {longTimeInParking = Math.floor(Math.random() * 13) + 1;}//how long time hour the user want to park random [1-13]
+  if(from == 12) {longTimeInParking = Math.floor(Math.random() * 12) + 1;}//how long time hour the user want to park random [1-12]
+  if(from == 13) {longTimeInParking = Math.floor(Math.random() * 11) + 1;}//how long time hour the user want to park random [1-11]
+  if(from == 14) {longTimeInParking = Math.floor(Math.random() * 10) + 1;}//how long time hour the user want to park random [1-10]
+  if(from == 15) {longTimeInParking = Math.floor(Math.random() * 9) + 1;}//how long time hour the user want to park random [1-9]
+  if(from == 16) {longTimeInParking = Math.floor(Math.random() * 8) + 1;}//how long time hour the user want to park random [1-8]
+  if(from == 17) {longTimeInParking = Math.floor(Math.random() * 7) + 1;}//how long time hour the user want to park random [1-7]
+  if(from == 18) {longTimeInParking = Math.floor(Math.random() * 6) + 1;}//how long time hour the user want to park random [1-6]
+  if(from == 19) {longTimeInParking = Math.floor(Math.random() * 5) + 1;}//how long time hour the user want to park random [1-5]
+  if(from == 20) {longTimeInParking = Math.floor(Math.random() * 4) + 1;}//how long time hour the user want to park random [1-4]
+  if(from == 21) {longTimeInParking = Math.floor(Math.random() * 3) + 1;}//how long time hour the user want to park random [1-3]
+  if(from == 22) {longTimeInParking = Math.floor(Math.random() * 2) + 1;}//how long time hour the user want to park random [1-2]
+  if(from == 23) {longTimeInParking = Math.floor(Math.random() * 1) + 1;}//how long time hour the user want to park random [1]
+
+  let to = from + longTimeInParking ; 
+
+// car object
+ let car = { // example
+    entry: entry,
+    from: from,
+    to: to
+  }
+return car ; 
+}
+function GetRandomHour()
+{
+    return Math.floor(Math.random() * 23) + 1;
+}
+
+function GetRandomCarAmount ()
+{
+    return Math.floor(Math.random() * 50) + 1;
+}
+
+
+//connection.release(); // Handle error after the release.
+
+});
+
+}},
+
+  //Function to simulation 2
+  Simulation2 : function(address)
+  {
+    pool.getConnection(function (err, con) {
+      if (err) throw err; // not connected!
+
+
+    ////////////////////////////////////-START-//////////////////////////////
+(async () => { 
+  await getParkings(address); 
+  var countFounds = 0;
+  var totalCarsAmount = 0 ;
+  for(var j=1;j<=1000 ;j++){
+   let CarAmount = GetRandomCarAmount();
+   totalCarsAmount+= CarAmount ;
+   for (let w=1;w<=CarAmount; w++){
+    let car = GetRandomCar();
+    let hour = GetRandomHour();
+    let entry = car.entry - 1 ;
+    let parkingsSorted = parkings.sort((p1,p2)=>{return p1.parking_slot-p2.parking_slot});//the parking that have the max parking slot
+    parkings = parkingsSorted//parkings after sort !
+    simoulation2Result["praking"] = parkingsSorted[0] ;
+    for (let i = 0; i < parkings.length ; i++) {
+        let found = parkings[i].count(hour);         
+        if(found>=0){ 
+            parkings[i].cars.push(car);
+            countFounds++;
+            break;
+        }
+      }
+    }
+  }
+   console.log("Total cars that looked to parking are:")
+   console.log(totalCarsAmount);
+   console.log("The numbers of cars that finded parking are:");
+   console.log(countFounds);
+   simoulation2Result["result"]= (countFounds/totalCarsAmount)*100 ;
+   console.log(simoulation2Result);
+   resultsFound["data"] = simoulation2Result ;
 
 })();
 
@@ -358,9 +506,7 @@ function GetRandomCarAmount ()
 
 });
 
-  },
-
-
+},
 
 
 
