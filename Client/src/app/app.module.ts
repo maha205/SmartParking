@@ -21,8 +21,6 @@ import { AgmDirectionModule } from 'agm-direction';
 import {AgmCoreModule} from '@agm/core'
 import {AgmMap, MouseEvent,MapsAPILoader  } from '@agm/core';
 import { TestComponent } from './test/test.component';
-import { ParentComponent } from './parent/parent.component';
-import { ChildComponent } from './child/child.component';
 import { RandomMapComponent } from './random-map/random-map.component';
 import { ParkingMapComponent } from './parking-map/parking-map.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
@@ -41,8 +39,6 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
     HowitworksComponent,
     MapsearchComponent,
     TestComponent,
-    ParentComponent,
-    ChildComponent,
     RandomMapComponent,
     ParkingMapComponent,
     ContactUsComponent,

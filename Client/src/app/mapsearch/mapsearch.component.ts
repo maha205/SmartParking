@@ -161,6 +161,16 @@ export class MapsearchComponent implements OnInit {
         this.savedChanges = true;
         this.docData = res["data"];
         GlobalConstants.setParkings(res["data"]);
+
+        this.destination={ 
+          lat:  GlobalConstants.parkings[0]["lat"] ,
+          lng:   GlobalConstants.parkings[0]["lng"] 
+
+        }
+
+        GlobalConstants.setDestination(this.destination);
+
+
         window.localStorage.setItem('token', res["data"].token);
         this._route.navigate(['/parkingMap']);
     } else {

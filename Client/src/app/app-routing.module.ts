@@ -11,8 +11,6 @@ import { HomeComponent } from './home/home.component';
 import { HowitworksComponent } from './howitworks/howitworks.component';
 import { MapsearchComponent } from './mapsearch/mapsearch.component';
 import { TestComponent } from './test/test.component';
-import { ParentComponent } from './parent/parent.component';
-import { ChildComponent } from './child/child.component';
 import { ParkingMapComponent } from './parking-map/parking-map.component';
 import { RandomMapComponent } from './random-map/random-map.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
@@ -32,8 +30,6 @@ const routes: Routes = [
   { path: 'reports', component: ReportsComponent, canActivate: [AuthGuard] },
   { path: 'mapsearch', component: MapsearchComponent, canActivate: [AuthGuard] },
   { path: 'test', component:TestComponent, canActivate: [AuthGuard] },
-  { path: 'parent', component:ParentComponent, canActivate: [AuthGuard] },
-  { path: 'child', component:ChildComponent, canActivate: [AuthGuard] },
   { path: 'parkingMap', component:ParkingMapComponent, canActivate: [AuthGuard] },
   { path: 'randomMap', component:RandomMapComponent, canActivate: [AuthGuard] },
   { path: 'contactus', component:ContactUsComponent, canActivate: [AuthGuard] },
