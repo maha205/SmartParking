@@ -5,6 +5,11 @@ import { Router } from '@angular/router';
 import { BackendService } from '../services/backend.service';
 declare var google: any;
 
+
+declare namespace google.maps.places {
+  export interface PlaceResult { geometry }
+}
+
 @Component({
   selector: 'app-mapsearch',
   templateUrl: './mapsearch.component.html',
@@ -17,7 +22,7 @@ export class MapsearchComponent implements OnInit {
   dataLoading: boolean = false;
   private querySubscription;
   savedChanges: boolean = false;
-  docData;
+  docData : [];
 
   latitude: number;
   longitude: number;
@@ -154,6 +159,8 @@ export class MapsearchComponent implements OnInit {
         this.errorMessage = "";
         this.dataLoading = false;
         this.savedChanges = true;
+        this.docData = res["data"];
+        GlobalConstants.setParkings(res["data"]);
         window.localStorage.setItem('token', res["data"].token);
         this._route.navigate(['/parkingMap']);
     } else {

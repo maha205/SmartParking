@@ -16,7 +16,11 @@ export class GlobalConstants {
     public static longitudeOrigin:number ;
     public static latitudeDestination :number;
     public static longitudeDestination :number ;
+    public static parkings : [any] ;
 
+    public static setParkings(parkings :[any]):void{
+      this.parkings = parkings ;
+    }
     public static setCurrentLocationAddress(addres :string):void{
         this.current_location_address = addres ;
     }
