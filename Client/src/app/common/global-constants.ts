@@ -22,30 +22,12 @@ export class GlobalConstants {
       lat:0,
       lng:0
     } ;
-    public static parkings : [any] 
-    
-    
-    public static allAddress : [string] =[""] ;
 
-
-    public static getAllAdress() : void
-    {
-        this.allAddress.length = this.parkings.length;
-        for(let  i=0;i<this.parkings.length ; i++)
-          {
-            this.getAddress(this.parkings[i]["lat"] , this.parkings[i]["lng"]);
-            this.allAddress.push(this.current_location_address);
-          }
-    }
-    public static addAddress (address :string):void{
-      this.allAddress.push(address) ;
-    } 
-    public static setAddress (address :any):void{
-      this.address1 = address ;
-    } 
-    public static setAllAddress (allAddress : [string]):void{
-      this.allAddress = allAddress ;
-    }
+    public static parkings : any[]  ;
+    //public static parkings : any[] = new Array[10] ;
+    
+  
+ 
     public static setParkings(parkings :[any]):void{
       this.parkings = parkings ;
     }

@@ -1,9 +1,10 @@
 body{
-    background:#f9f9fb;    
+    background:#f9f9fb; 
     }
     .view-account{
     background:#FFFFFF; 
-    margin-top:20px;
+    margin-top:0px;
+    font-size: 13px;
     }
     .view-account .pro-label {
     font-size: 13px;
@@ -472,7 +473,7 @@ body{
         height: 54px
     }
     .drive-wrapper .drive-item-thumb .fa {
-        font-size: 24px;
+        font-size: 20px;
         padding-top: 0
     }
     .view-account .content-panel .avatar .figure img {
