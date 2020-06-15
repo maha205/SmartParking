@@ -205,7 +205,7 @@ module.exports = {
       });
   },
   searchParking:  function (req, res) {
-      var address = req.body.destinationinput ;
+      var address ="Haifa" ;
         pool.getConnection(function (err, connection) {
           if (err) throw err; // not connected!
             var sql = 'SELECT * FROM Parking WHERE address = ?';

@@ -10,75 +10,156 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-
+<form class="my-form" #GoForm="ngForm" (ngSubmit)="Go(GoForm.value)"> 
   <section class="container">
     <div class="left-half">
     <div class="scrollable">
     <div class="listing-container row">
     <div class="card border-success mb-3" style="max-width: 50rem;">
-    <div class="card-header"><p class="a"></p></div>
-    <div class="card-body text-info">
-      <h5 class="card-title">FREE</h5>
+    <div class="card-header"><p>{{address1}}</p></div>
+    <!-- <div>{{address1}}</div> -->
+    <div class="card-body text-success">
+      <h5 class="card-title">{{cost1}}₪</h5>
     <div class="listing-thumb col-xs-4">
     <img src="https://d2uqqhmijd5j2z.cloudfront.net/files/251577/search_thumb/120_S_Los_Angeles_St.png?1519947380">
     </div>
     <div class="listing-details col-xs-8">
       <div class="row">
-    <span>{{distance}} Km away</span>
-    <p class="card-text">Some quick example text to build on the panel title and make up the bulk of the panel's content.</p>
+    <span>{{distance1}} Km away</span>
+<a routerLink="/mapgo" style="color:green"><b ><br/>Go! </b><i class="fas fa"></i><i class="fas fa-forward"></i></a>    </div>
+  </div>
+  </div>
+  </div>
+  </div>
+
+
+  <div class="listing-container row">
+    <div class="card border-warning mb-3" style="max-width: 50rem;">
+    <div class="card-header"><p>{{address2}}</p></div>
+    <div class="card-body text-warning">
+      <h5 class="card-title">{{cost2}}₪</h5>
+    <div class="listing-thumb col-xs-4">
+    <img src="https://d3jcifhin4u71d.cloudfront.net/losangeles/facility_266.jpg">
+    </div>
+    <div class="listing-details col-xs-8">
+      <div class="row">
+    <span>{{distance2}} Km away</span>
+     <a routerLink="/mapgo" style="color:green"><b ><br/>Go! </b><i class="fas fa"></i><i class="fas fa-forward"></i></a> 
     </div>
   </div>
   </div>
   </div>
   </div>
 
-  <div class="card border-success mb-3" style="max-width: 50rem;">
-    <div class="card-header">Header</div>
+  <div class="listing-container row">
+    <div class="card border-warning mb-3" style="max-width: 50rem;">
+    <div class="card-header"><p>{{address3}}</p></div>
     <div class="card-body text-warning">
-      <h5 class="card-title">Warning Panel title</h5>
-      <p class="card-text">Some quick example text to build on the panel title and make up the bulk of the panel's content.</p>
+      <h5 class="card-title">{{cost3}}₪</h5>
+    <div class="listing-thumb col-xs-4">
+    <img src="https://d3jcifhin4u71d.cloudfront.net/losangeles/facility_504.jpg">
+    </div>
+    <div class="listing-details col-xs-8">
+      <div class="row">
+    <span>{{distance3}} Km away</span>
+     <a routerLink="/mapgo" style="color:green"><b ><br/>Go! </b><i class="fas fa"></i><i class="fas fa-forward"></i></a> 
     </div>
   </div>
-  <div class="card border-warning mb-3" style="max-width: 50rem;">
-    <div class="card-header">Header</div>
+  </div>
+  </div>
+  </div>
+
+  <div class="listing-container row">
+    <div class="card border-warning mb-3" style="max-width: 50rem;">
+    <div class="card-header"><p>{{address4}}</p></div>
     <div class="card-body text-warning">
-      <h5 class="card-title">Warning Panel title</h5>
-      <p class="card-text">Some quick example text to build on the panel title and make up the bulk of the panel's content.</p>
+      <h5 class="card-title">{{cost4}}₪</h5>
+    <div class="listing-thumb col-xs-4">
+    <img src="https://d3jcifhin4u71d.cloudfront.net/losangeles/facility_504.jpg">
+    </div>
+    <div class="listing-details col-xs-8">
+      <div class="row">
+    <span>{{distance4}} Km away</span>
+     <a routerLink="/mapgo" style="color:green"><b ><br/>Go! </b><i class="fas fa"></i><i class="fas fa-forward"></i></a> 
     </div>
   </div>
-  <div class="card border-danger mb-3" style="max-width: 50rem;">
-    <div class="card-header">Header</div>
+  </div>
+  </div>
+  </div>
+
+    <div class="listing-container row">
+    <div class="card border-warning mb-3" style="max-width: 50rem;">
+    <div class="card-header"><p>{{address5}}</p></div>
     <div class="card-body text-warning">
-      <h5 class="card-title">Warning Panel title</h5>
-      <p class="card-text">Some quick example text to build on the panel title and make up the bulk of the panel's content.</p>
+      <h5 class="card-title">{{cost5}}₪</h5>
+    <div class="listing-thumb col-xs-4">
+    <img src="https://d3jcifhin4u71d.cloudfront.net/losangeles/facility_504.jpg">
+    </div>
+    <div class="listing-details col-xs-8">
+      <div class="row">
+    <span>{{distance5}} Km away</span>
+     <a routerLink="/mapgo" style="color:green"><b ><br/>Go! </b><i class="fas fa"></i><i class="fas fa-forward"></i></a> 
     </div>
   </div>
+  </div>
+  </div>
+  </div>
+
+   <div class="listing-container row">
+    <div class="card border-danger mb-3" style="max-width: 50rem;">
+    <div class="card-header"><p>{{address6}}</p></div>
+    <div class="card-body text-danger">
+      <h5 class="card-title">{{cost6}}₪</h5>
+    <div class="listing-thumb col-xs-4">
+    <img src="https://d3jcifhin4u71d.cloudfront.net/losangeles/facility_504.jpg">
+    </div>
+    <div class="listing-details col-xs-8">
+      <div class="row">
+    <span>{{distance6}} Km away</span>
+     <a routerLink="/mapgo" style="color:green"><b ><br/>Go! </b><i class="fas fa"></i><i class="fas fa-forward"></i></a> 
+    </div>
+  </div>
+  </div>
+  </div>
+  </div>
+
 </div>
 </div>
 
   <div class="right-half">
       <div class="map-wrapper">
-   <agm-map #map [mapTypeId]="'roadmap'" [latitude]="origin.lat" [longitude]="origin.lng" [zoom]="origin.zoom">
-        <agm-direction  
+   <!-- <agm-map #map [mapTypeId]="'roadmap'" [latitude]="origin.lat" [longitude]="origin.lng" [zoom]="origin.zoom"> -->
+<agm-map #map [mapTypeId]="'roadmap'" [latitude]="destinationLat" [longitude]="destinationLng" [zoom]="zoomLevel" (mapReady)="mapReading()">
+        <!-- <agm-direction  
         [origin]="origin" 
         [destination]="destination"
         [renderOptions]="renderOptions" 
         [markerOptions]="markerOptions">
-    ></agm-direction>
-    <agm-circle [latitude]="origin.lat" [longitude]="origin.lng"
+    ></agm-direction> -->
+
+    <agm-marker 
+    *ngFor="let m of markers; let i = index"
+    [animation]="userLocationMarkerAnimation"
+    [latitude]="m.lat"
+    [longitude]="m.lng"
+    [iconUrl]="m.icon">
+    </agm-marker>
+
+
+    <!-- <agm-circle [latitude]="origin.lat" [longitude]="origin.lng"
     [(radius)]="circleRadius"
     [fillColor]="'#3b5998'"
     [circleDraggable]="false"
     [editable]="false"
-    ></agm-circle>
+    ></agm-circle> -->
       </agm-map>
-      <div>
+      <!-- <div>
         Distance: {{distance}}
-   </div>
+   </div> -->
   </div>
   </div>
 </section>
-
+</form>
 </body>
 
 </html>

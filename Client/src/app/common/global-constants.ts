@@ -1,3 +1,5 @@
+import { newArray } from "@angular/compiler/src/util";
+
 export class GlobalConstants { 
     public static geoCoder :any;
 
@@ -16,8 +18,34 @@ export class GlobalConstants {
     public static longitudeOrigin:number ;
     public static latitudeDestination :number;
     public static longitudeDestination :number ;
-    public static parkings : [any] ;
+    public static address1 :any ={
+      lat:0,
+      lng:0
+    } ;
+    public static parkings : [any] 
+    
+    
+    public static allAddress : [string] =[""] ;
 
+
+    public static getAllAdress() : void
+    {
+        this.allAddress.length = this.parkings.length;
+        for(let  i=0;i<this.parkings.length ; i++)
+          {
+            this.getAddress(this.parkings[i]["lat"] , this.parkings[i]["lng"]);
+            this.allAddress.push(this.current_location_address);
+          }
+    }
+    public static addAddress (address :string):void{
+      this.allAddress.push(address) ;
+    } 
+    public static setAddress (address :any):void{
+      this.address1 = address ;
+    } 
+    public static setAllAddress (allAddress : [string]):void{
+      this.allAddress = allAddress ;
+    }
     public static setParkings(parkings :[any]):void{
       this.parkings = parkings ;
     }
@@ -58,10 +86,10 @@ export class GlobalConstants {
     }
 
      public static getAddress(latitude:number, longitude:number) :void{
-        GlobalConstants.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
+        this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
           if (status === 'OK') {
             if (results[0]) {
-              GlobalConstants.current_location_address = results[0].formatted_address;
+              this.current_location_address = results[0].formatted_address;
             } else {
               window.alert('No results found');
             }

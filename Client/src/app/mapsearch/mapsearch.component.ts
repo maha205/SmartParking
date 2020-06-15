@@ -23,6 +23,8 @@ export class MapsearchComponent implements OnInit {
   private querySubscription;
   savedChanges: boolean = false;
   docData : [];
+  allAddress : [string] ;
+
 
   latitude: number;
   longitude: number;
@@ -161,15 +163,16 @@ export class MapsearchComponent implements OnInit {
         this.savedChanges = true;
         this.docData = res["data"];
         GlobalConstants.setParkings(res["data"]);
-
-        this.destination={ 
-          lat:  GlobalConstants.parkings[0]["lat"] ,
-          lng:   GlobalConstants.parkings[0]["lng"] 
-
-        }
-
-        GlobalConstants.setDestination(this.destination);
-
+      
+        // var i ,address; 
+        // let allAddress : [ string] ;
+        // allAddress.length = GlobalConstants.parkings.length;
+        // for(i=0;i<GlobalConstants.parkings.length ; i++)
+        //   {
+        //     this.getAddress(GlobalConstants.parkings[i]["lat"] , GlobalConstants.parkings[i]["lng"]);
+        //     allAddress.push(this.address);
+        //   }
+        //   GlobalConstants.setAllAddress(allAddress);
 
         window.localStorage.setItem('token', res["data"].token);
         this._route.navigate(['/parkingMap']);

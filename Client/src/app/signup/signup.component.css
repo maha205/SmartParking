@@ -5,15 +5,19 @@
    box-shadow: 0 0 10px #666666;
    margin: 4% auto 0;
    width: 600px;
+
 }
 
 body
 {
     background-color:  #dedede;
+
 }
 
 .input-group-addon
 {
     background-color: #ffde6c;
     color: #d17d00;
+    font-size: 20px;
+
 }
