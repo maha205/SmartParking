@@ -1,59 +1,119 @@
-<br>
-<br>
-<br>
+
+<!DOCTYPE html>
+<html>
 <head>
-  <title>Bootstrap Example</title>
   <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <title>Parking Search</title>
+
+  <link rel="shortcut icon" href="/assets/images/logo/favicon.png">
+  <link rel="apple-touch-icon" href="/assets/images/logo/apple-touch-icon.png">
+
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+
+  <link rel="stylesheet" type="text/css" href="/assets/css/bootstrap.min.css">
+
+  <link rel="stylesheet" href="/assets/vendors/menu/src/main.menu.css">
+
+  <link rel="stylesheet" type="text/css" href="/assets/css/styles.css">
+  <link rel="stylesheet" type="text/css" href="/assets/css/utilities.css">
+  <link rel="stylesheet" type="text/css" href="/assets/css/colors.css">
+  <link rel="stylesheet" type="text/css" href="/assets/css/colors-gh.css">
+  <link rel="stylesheet" type="text/css" href="/assets/css/colors-g.css">
+
+  <!-- CAROUSEL -->
+  <link rel="stylesheet" href="/assets/vendors/owl.carousel/owl.carousel.min.css">
+  <link rel="stylesheet" href="/assets/vendors/owl.carousel/owl.theme.default.min.css">
+
+  <!-- ANIMATE -->
+  <link rel="stylesheet" type="text/css" href="/assets/vendors/animate/animate.css">
+
+  <!-- ANIMATED HEADLINES -->
+  <link rel="stylesheet" type="text/css" href="/assets/vendors/animated-headline/css/style.css">
+
+  <!-- FANCY BOX -->
+  <link rel="stylesheet" type="text/css" href="/assets/vendors/fancybox/jquery.fancybox.min.css">
+
 </head>
+
+<body>
 <div class="container">
   <div class="row d-flex justify-content-center align-items-center">
-    <div class="col-md-7">
+    <div class="col-md-8">
       <div class="form d-flex justify-content-between">
+
         <form class="my-form" #searchForm="ngForm" (ngSubmit)="search(searchForm.value)"> 
 
-          <h4 class="font-weight-bold mb-3">PARKTECH For Parking </h4>
-          <p class="mdb-color-text">To look for parking, please fill in these text fiels with your location and destination.</p>
+          <h4 class="font-weight-bold mb-3">PARKING JUST GOT A LOT SIMPLER</h4>
+          <br>
+          <p id="a">Book the Best Spaces & Save Up to 50%</p>
+          
+          <p id="a">Enter your Location & Destination: </p>
+          
           <!-- Email address -->
           <div class="md-form md-outline">
-            <i class="fas fa-map-pin"></i>
-                    <label><i class ="fas fa"></i> Location</label>
-                    <br/>
-                  <input type="text" id="origin-input" class="controls" (keydown.enter)="$event.preventDefault()"  placeholder={{address}} autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #origin >
+            <img src="https://image.flaticon.com/icons/svg/2101/2101302.svg" style="height: 30px; width: 40px;">
+          <label> Location</label>
+          <br>
+          <input type="text" id="origin-input" class="controls" (keydown.enter)="$event.preventDefault()"  placeholder={{address}} autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #origin >
           </div>
+          <br>
           <!-- Password -->
           <div class="md-form md-outline">
-            <br/>
-            <i class="fas fa-map-marker"></i>
-            <label><i class ="fas fa"></i> Destination</label>
-                    <br/>
-      <input type="text" [(ngModel)]='listFilter' id="destinationinput" name="destinationinput" class="controls" (keydown.enter)="$event.preventDefault()"  placeholder="Enter a destination location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #destination>
-          </div>
+          <img src="https://image.flaticon.com/icons/svg/1912/1912170.svg" style="height: 30px; width: 40px;">
+          <label>Destination</label>
+          <br>
+          <input type="text" [(ngModel)]='listFilter' id="destinationinput" class="controls" name="destinationinput"  (keydown.enter)="$event.preventDefault()"  placeholder="Enter a destination location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #destination>
+          </div>  
+          <br>
 
           
-
-<br>
-<label class="radio-inline"><input type="radio" name="optradio" checked> <i class="fas fa-parking"></i></label>
-<label class="radio-inline"><input type="radio" name="optradio"><i class="fas fa-wheelchair"></i></label>
-
-
-          <div class="space">
-            <div class="float-right">
-      <button class="btn btn-lg btn-block btn-block" [disabled]="!listFilter" type="submit" >Search</button>
-
-       </div>
-          </div>
+          <label class="radio-inline"><input type="radio" name="optradio" checked>
+          <img src="https://image.flaticon.com/icons/svg/68/68393.svg" style="height: 25px; width: 25px; margin-left: 5px;">
+          </label>
           
-          <hr>
+          <label class="radio-inline" style="margin-left: 15px;"><input type="radio" name="optradio" >
+          <img src="https://image.flaticon.com/icons/svg/93/93191.svg" style="height: 30px; width: 40px;">
+          </label>
+
+
+          <div class="row" style="position: absolute; left: 15%; margin-top:20px ;">
+          <div class="col-md-12">
+     
+            
+         <button type="submit" class="btn btn-dark active" [disabled]="!listFilter"><i class="fa fa-search"></i> Search</button>
+        
+              <!-- <button type="submit" class="btn btn-outline-danger btn-rounded waves-effect"><i class="fas fa-cogs pr-2"
+                aria-hidden="true" ></i>Search</button> -->
+              <!-- <button class="btn btn-lg btn-block btn-block"  type="submit">Search</button> -->
+          </div>
+          </div>
         </form>
+       
 
          <div class="image">
-    <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
-      <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
+          <div id="wrapper">
+    <agm-map  [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+      <agm-marker [latitude]="latitude" [longitude]="longitude" [iconUrl]="
+      {
+        url: 'https://cdn.pixabay.com/photo/2020/04/29/16/51/navigation-5109668_960_720.png',
+        scaledSize: {
+            width: 40,
+            height: 50
+        }
+    }"
+     [markerDraggable]="true" 
         (dragEnd)="markerDragEnd($event)"></agm-marker>
-    </agm-map>        </div>
+    </agm-map>       
+   </div>
       </div>
     </div>
+    </div>
   </div>
+  <br>
+  <br>
+  <br>
 </div>
+</body>
+</html>
