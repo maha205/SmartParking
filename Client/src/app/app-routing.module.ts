@@ -15,6 +15,7 @@ import { ParkingMapComponent } from './parking-map/parking-map.component';
 import { RandomMapComponent } from './random-map/random-map.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { MapGoComponent } from './map-go/map-go.component';
+import { SendMassageComponent } from './send-massage/send-massage.component';
 
 
 const routes: Routes = [
@@ -36,6 +37,7 @@ const routes: Routes = [
   { path: 'randomMap', component:RandomMapComponent, canActivate: [AuthGuard] },
   { path: 'contactus', component:ContactUsComponent, canActivate: [AuthGuard] },
   { path: 'mapgo', component:MapGoComponent, canActivate: [AuthGuard] },
+  { path: 'sendmassage', component:SendMassageComponent, canActivate: [AuthGuard] },
   
   
    { path: '**', redirectTo: '/login', pathMatch: 'full' }

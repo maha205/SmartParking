@@ -25,6 +25,7 @@ import { RandomMapComponent } from './random-map/random-map.component';
 import { ParkingMapComponent } from './parking-map/parking-map.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { MapGoComponent } from './map-go/map-go.component';
+import { SendMassageComponent } from './send-massage/send-massage.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,6 +45,7 @@ import { MapGoComponent } from './map-go/map-go.component';
     ParkingMapComponent,
     ContactUsComponent,
     MapGoComponent,
+    SendMassageComponent,
   ],
   imports: [
     BrowserModule,
