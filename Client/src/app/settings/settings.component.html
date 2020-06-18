@@ -1,198 +1,347 @@
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-<main role="main" class="container">
-  <div class="loader" *ngIf="dataLoading"></div>
-  <div class="alert alert-danger" role="alert" *ngIf="error">
-    An error occured. Here is the error : {{ errorMessage }}.
-  </div>
-  <div *ngIf="savedChanges else showForm">
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>settings</title>
+
+  <link rel="shortcut icon" href="/assets/images/logo/favicon.png">
+  <link rel="apple-touch-icon" href="/assets/images/logo/apple-touch-icon.png">
+
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+
+<link rel="stylesheet" type="text/css" href="/assets/css/bootstrap.min.css">
+
+  <link rel="stylesheet" href="/assets/vendors/menu/src/main.menu.css">
+
+  <link rel="stylesheet" type="text/css" href="/assets/css/styles.css">
+  <link rel="stylesheet" type="text/css" href="/assets/css/utilities.css">
+  <link rel="stylesheet" type="text/css" href="/assets/css/colors.css">
+  <link rel="stylesheet" type="text/css" href="/assets/css/colors-gh.css">
+  <link rel="stylesheet" type="text/css" href="/assets/css/colors-g.css">
+
+  <!-- CAROUSEL -->
+  <link rel="stylesheet" href="/assets/vendors/owl.carousel/owl.carousel.min.css">
+  <link rel="stylesheet" href="/assets/vendors/owl.carousel/owl.theme.default.min.css">
+
+  <!-- ANIMATE -->
+  <link rel="stylesheet" type="text/css" href="/assets/vendors/animate/animate.css">
+
+  <!-- ANIMATED HEADLINES -->
+  <link rel="stylesheet" type="text/css" href="/assets/vendors/animated-headline/css/style.css">
+
+  <!-- FANCY BOX -->
+<link rel="stylesheet" type="text/css" href="/assets/vendors/fancybox/jquery.fancybox.min.css">
+
 <style >
-    body {
-		font-family: 'Varela Round', sans-serif;
-	}
-	.modal-confirm {		
-		color: #636363;
-		width: 325px;
-	}
-	.modal-confirm .modal-content {
-		padding: 20px;
-		border-radius: 5px;
-		border: none;
-	}
-	.modal-confirm .modal-header {
-		border-bottom: none;   
+
+  .modal-confirm {    
+    color: #636363;
+    width: 325px;
+  }
+  .modal-confirm .modal-content {
+    padding: 20px;
+    border-radius: 5px;
+    border: none;
+  }
+  .modal-confirm .modal-header {
+    border-bottom: none;   
         position: relative;
-	}
-	.modal-confirm h4 {
-		text-align: center;
-		font-size: 26px;
-		margin: 30px 0 -15px;
-	}
-	.modal-confirm .form-control, .modal-confirm .btn {
-		min-height: 40px;
-		border-radius: 3px; 
-	}
-	.modal-confirm .close {
+  }
+  .modal-confirm h4 {
+    text-align: center;
+    font-size: 26px;
+    margin: 30px 0 -15px;
+  }
+  .modal-confirm .form-control, .modal-confirm .btn {
+    min-height: 40px;
+    border-radius: 3px; 
+  }
+  .modal-confirm .close {
         position: absolute;
-		top: -5px;
-		right: -5px;
-	}	
-	.modal-confirm .modal-footer {
-		border: none;
-		text-align: center;
-		border-radius: 5px;
-		font-size: 13px;
-	}	
-	.modal-confirm .icon-box {
-		color: #fff;		
-		position: absolute;
-		margin: 0 auto;
-		left: 0;
-		right: 0;
-		top: -70px;
-		width: 95px;
-		height: 95px;
-		border-radius: 50%;
-		z-index: 9;
-		background: #82ce34;
-		padding: 15px;
-		text-align: center;
-		box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
-	}
-	.modal-confirm .icon-box i {
-		font-size: 58px;
-		position: relative;
-		top: 3px;
-	}
-	.modal-confirm.modal-dialog {
-		margin-top: 80px;
-	}
+    top: -5px;
+    right: -5px;
+  } 
+  .modal-confirm .modal-footer {
+    border: none;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 13px;
+  } 
+  .modal-confirm .icon-box {
+    color: #fff;    
+    position: absolute;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    top: -70px;
+    width: 95px;
+    height: 95px;
+    border-radius: 50%;
+    z-index: 9;
+    background: #82ce34;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+  }
+  .modal-confirm .icon-box i {
+    font-size: 58px;
+    position: relative;
+    top: 3px;
+  }
+  .modal-confirm.modal-dialog {
+    margin-top: 80px;
+  }
     .modal-confirm .btn {
         color: #fff;
         border-radius: 4px;
-		background: #82ce34;
-		text-decoration: none;
-		transition: all 0.4s;
+    background: #82ce34;
+    text-decoration: none;
+    transition: all 0.4s;
         line-height: normal;
         border: none;
     }
-	.modal-confirm .btn:hover, .modal-confirm .btn:focus {
-		background: #6fb32b;
-		outline: none;
-	}
-	.trigger-btn {
-		display: inline-block;
-		margin: 100px auto;
-	}
+  .modal-confirm .btn:hover, .modal-confirm .btn:focus {
+    background: #6fb32b;
+    outline: none;
+  }
+  /* .trigger-btn {
+    display: inline-block;
+    margin: 100px auto;
+  } */
+
+  @import url('https://fonts.googleapis.com/css?family=Numans');
+
+html,body{
+    background-image: url('/assets/images/bg/katka-pavlickova-Sf5Q7Ljjf58-unsplash.jpg');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    height: 100%;
+    font-family: 'Numans', sans-serif;
+    }
+
+    .container{
+        height: 1000px;
+        align-content: center;
+        }
+
+.card{
+    /* height: 500px; */
+    margin-top: 20px;
+    margin-right: 600px;
+    margin-bottom: 85px; 
+    width: 400px;
+    background-color: rgba(0, 0, 0, 0.1) !important;
+    }
+.card-header h3{
+     color: white;
+     }
+     .social_icon span{
+        font-size: 60px;
+        margin-left: 10px;
+        color:rgb(105, 172, 19);
+       }
+        
+       .social_icon span:hover{
+       color: white;
+       cursor: pointer;
+       }
+       .social_icon{
+        position: absolute;
+        right: 20px;
+        top: -45px;
+        }
+        .input-group-prepend span{
+            width: 50px;
+            background-color: rgb(105, 172, 19);
+            color:white;
+            border:0 !important;
+            }
+            input:focus{
+                outline: 0 0 0 0  !important;
+                box-shadow: 0 0 0 0 !important;
+                
+                }
+                
+                .remember{
+                color: white;
+                }
+                
+                .remember input
+                {
+                width: 20px;
+                height: 20px;
+                margin-left: 15px;
+                margin-right: 5px;
+                }
+                
+                .login_btn{
+                color: white;
+                background-color: rgb(16, 72, 94);
+                width: 100px;
+                }
+                
+                .login_btn:hover{
+                color: black;
+                background-color: white;
+                } */
+                
+                .links{
+                color: white;
+                }
+                
+                .links a{
+                margin-left: 4px;
+                }
+
+                h4.modal-header{
+                text-align: center;
+                }
 </style>
 </head>
 <body>
 
+  <main role="main" class="container">
+    <div class="loader" *ngIf="dataLoading"></div>
+    <div class="alert alert-danger" role="alert" *ngIf="error">
+     An error occured. Here is the error : {{ errorMessage }}.
+    </div>
+   
+<div *ngIf="savedChanges else showForm">
 <!-- Modal HTML -->
 <div class="text-center">
-	<div class="modal-dialog modal-confirm">
-		<div class="modal-content">
-        
-			<div class="modal-header">
-				<div class="icon-box">
-					<i class="material-icons">&#xE876;</i>
-				</div>				
-				<h4 class="modal-title">Awesome!</h4>	
-			</div>
-			<div class="modal-body">
-					<p class="text-center">Updating has been completed successfully!</p>
-			</div>
-				<a ><button class="btn btn-success btn-block" type="submit" data-dismiss="modal" (click)="savedChanges=!savedChanges; getData();">OK</button></a>
-		</div>
-	</div>
-</div>     
-</body>
-</html>                                                            
-  </div>
+<div class="modal-dialog modal-confirm">
+<div class="modal-content">
+<div class="modal-header">
+<div class="icon-box">
+<i class="fa fa-check" aria-hidden="true"></i>
+</div>        
+<h4 class="modal-body">Awesome!</h4>  
+</div>
+<div class="modal-body">
+<p class="text-center">Updating has been completed successfully!</p>
+</div>
+<a ><button class="btn btn-success btn-block" type="submit" data-dismiss="modal" (click)="savedChanges=!savedChanges; getData();">OK</button></a>
+</div>
+</div>
+</div>                                                         
+</div>
+ 
   <ng-template #showForm>
-      <span class="lead">
-          <form class="form-signin" #settingsForm="ngForm" (ngSubmit)="settings(settingsForm.value)">
-    <div class="view-account">
-        <section class="module">
-            <div class="module-inner">
-                <div class="content-panel">
-                        <fieldset class="fieldset">
-                            <h3 class="fieldset-title" style="color:#d17d00;"><b>Personal Info</b></h3>
-                            <div class="form-group">
-                                <label class="col-md-2 col-sm-3 col-xs-12 control-label" style="color:#0F575C;" class="form-horizontal"><b>User Name</b></label>
-                                <div class="col-md-10 col-sm-9 col-xs-12">
-                                          <input type="text" name="inputFullName" id="inputFullName" class="form-control" placeholder="Full Name" autofocus #inputFullName="ngModel" autofocus required [ngModel]="docData?.fullName" minlength="3" maxlength="300">
-            </div>
-            <div class="alert alert-danger" role="alert" *ngIf="inputFullName.invalid && (inputFullName.dirty || inputFullName.touched)">
-                Please enter a valid name between 3 to 30 chars.
-              </div>
-                                </div>
-        
-                            <div class="form-group">
-                                <label class="col-md-2 col-sm-3 col-xs-12 control-label" style="color:#0F575C;" class="form-horizontal"><b>Address</b></label>
-                                <div class="col-md-10 col-sm-9 col-xs-12">
-  <input type="text" name="inputAddress" id="inputAddress" class="form-control" placeholder="Address" #inputAddress="ngModel"
-            required autofocus required [ngModel]="docData?.address" minlength="3" maxlength="200" ngModel>
-        </div>
-        <div class="alert alert-danger" role="alert" *ngIf="inputAddress.invalid && (inputAddress.dirty || inputAddress.touched)">
-          Please enter a valid Address.
-        </div>                                </div>
-                            <div class="form-group">
-                                <label class="col-md-2 col-sm-3 col-xs-12 control-label" style="color:#0F575C;" class="form-horizontal"><b>Car Number</b></label>
-                                <div class="col-md-10 col-sm-9 col-xs-12">
- <input type="text" name="inputCarNo" id="inputCarNo" class="form-control" placeholder="Car Number" #inputCarNo="ngModel"
-            required autofocus required [ngModel]="docData?.carNumber" minlength="5" maxlength="20" ngModel>
-        </div>
-        <div class="alert alert-danger" role="alert" *ngIf="inputCarNo.invalid && (inputCarNo.dirty || inputCarNo.touched)">
-          Please enter a valid Car Number.
-        </div>                                </div>
-                            <div class="form-group">
-                                <label class="col-md-2 col-sm-3 col-xs-12 control-label" style="color:#0F575C;" class="form-horizontal"><b>Password</b></label>
-                                <div class="col-md-10 col-sm-9 col-xs-12">
-    <input type="password" name="inputPassword" id="inputPassword" class="form-control" placeholder="Password" #inputPassword="ngModel" required autofocus  [ngModel]="docData?.password" minlength="3" maxlength="300">
-            </div>
-            <div class="alert alert-danger" role="alert" *ngIf="inputPassword.invalid && (inputPassword.dirty || inputPassword.touched)">
-                Please enter a valid password between 3 to 30 chars.
-              </div>                                </div>
-                        </fieldset>
-                            <div class="form-group">
-                                <label class="col-md-2 col-sm-3 col-xs-12 control-label" style="color:#0F575C;" class="form-horizontal"><b>Email</b></label>
-                                <div class="col-md-10 col-sm-9 col-xs-12">
- <input type="email" id="inputEmail" name="inputEmail" class="form-control" placeholder="Email address" #inputEmail="ngModel" required autofocus [ngModel]="docData?.email" email>
-            </div>
-            <div class="alert alert-danger" role="alert" *ngIf="inputEmail.invalid && (inputEmail.dirty || inputEmail.touched)">
-                Please enter a valid email.
-              </div>                                </div>
-                            <div class="form-group">
-                                <label class="col-md-2 col-sm-3 col-xs-12 control-label" style="color:#0F575C;" class="form-horizontal"><b>Phone Nmuber</b></label>
-                                <div class="col-md-10 col-sm-9 col-xs-12">
-   <input type="text" name="inputPhoneNo" id="inputPhoneNo" class="form-control" placeholder="Phone Number" #inputPhoneNo="ngModel"
-            required autofocus required [ngModel]="docData?.phone"  minlength="10" maxlength="20" ngModel>
-        </div>
-        <div class="alert alert-danger" role="alert" *ngIf="inputPhoneNo.invalid && (inputPhoneNo.dirty || inputPhoneNo.touched)">
-          Please enter a valid phone Number.
-        </div>                                </div>
-                       
+  <span class="lead">
+  <form class="form-signin" #settingsForm="ngForm" (ngSubmit)="settings(settingsForm.value)">
+  <div class="card">
+  <div class="card-header">
+  <h3>Personal Info</h3>
+  <div class="d-flex justify-content-end social_icon">
+  <span><i class="fab fa-facebook-square"></i></span>
+  <span><i class="fab fa-google-plus-square"></i></span>
+  <span><i class="fab fa-twitter-square"></i></span>
+  </div>
+  </div>                       
+                            
+                            
+                           
+<div class="card-body">
+<label class="col-md-2 col-sm-3 col-xs-12 control-label" style="color:white; font-size: 16px;" class="form-horizontal" ><b>Full Name:</b></label>
+<div class="input-group form-group">
+<div class="input-group-prepend">
+<span class="input-group-text"><i class="fa fa-user"></i></span>
+</div>
+<input type="text" name="inputFullName" id="inputFullName" class="form-control" placeholder="Full Name" autofocus #inputFullName="ngModel" autofocus required [ngModel]="docData?.fullName" minlength="3" maxlength="200">
+</div>
+<div class="alert alert-danger" role="alert" *ngIf="inputFullName.invalid && (inputFullName.dirty || inputFullName.touched)" style="font-size: 14px;">
+Please enter a valid name between 3 to 30 chars.
+</div>
 
-                        <div class="form-group">
-                            <div class="col-md-10 col-sm-9 col-xs-12 col-md-push-2 col-sm-push-3 col-xs-push-0">
-    <div *ngIf="!settingsForm.valid else showSubmitButton">
-                <button   class="btn btn-lg btn-block btn-block btn btn-dark active"type="submit" >Update</button>
-              </div>
-              <ng-template #showSubmitButton>
-                <button class="btn btn-lg btn-block btn-block btn btn-dark active" type="submit">Update</button>
-              </ng-template>                            </div>
-                        </div>
-                </div>
-            </div>
-        </section>
-    </div>
-    </form>
-        </span>
-  </ng-template>
+
+
+<label class="col-md-2 col-sm-3 col-xs-12 control-label" style="color:white; font-size: 16px;" class="form-horizontal"><b>Email:</b></label>
+<div class="input-group form-group">
+<div class="input-group-prepend">
+<span class="input-group-text"><i class="fa fa-envelope"></i></span>
+</div>
+<input type="email" id="inputEmail" name="inputEmail" class="form-control" placeholder="Email address" #inputEmail="ngModel" required autofocus [ngModel]="docData?.email" email>
+</div>
+<div class="alert alert-danger" role="alert" *ngIf="inputEmail.invalid && (inputEmail.dirty || inputEmail.touched)" style="font-size: 14px;">
+Please enter a valid email.
+</div>                           
+
+
+<label class="col-md-2 col-sm-3 col-xs-12 control-label" style="color:white; font-size: 16px;" class="form-horizontal"><b>Phone Number:</b></label>
+<div class="input-group form-group">
+<div class="input-group-prepend">
+<span class="input-group-text"><i class="fa fa-phone"></i></span>
+</div>
+<select class="custom-select" style="max-width: 120px;">
+<option selected="">+972</option>
+</select>
+<input type="text" name="inputPhoneNo" id="inputPhoneNo" class="form-control" placeholder="Phone Number" #inputPhoneNo="ngModel"
+required autofocus required [ngModel]="docData?.phone"  minlength="8" maxlength="20" ngModel>
+</div>
+<div class="alert alert-danger" role="alert" *ngIf="inputPhoneNo.invalid && (inputPhoneNo.dirty || inputPhoneNo.touched)" style="font-size: 14px;">
+Please enter a valid phone Number.
+</div>            
+
+
+
+<label class="col-md-2 col-sm-3 col-xs-12 control-label" style="color:white; font-size: 16px;" class="form-horizontal"><b>Address:</b></label>
+<div class="input-group form-group">
+<div class="input-group-prepend">
+<span class="input-group-text"><i class="fa fa-address-card"></i></span>
+</div>
+<input type="text" name="inputAddress" id="inputAddress" class="form-control" placeholder="Address" #inputAddress="ngModel"
+required autofocus required [ngModel]="docData?.address" minlength="3" maxlength="200" ngModel>
+</div>
+<div class="alert alert-danger" role="alert" *ngIf="inputAddress.invalid && (inputAddress.dirty || inputAddress.touched)" style="font-size: 14px;">
+Please enter a valid Address.
+</div>                               
+
+
+
+
+
+
+<label class="col-md-2 col-sm-3 col-xs-12 control-label" style="color:white; font-size: 16px;" class="form-horizontal"><b>Car Number:</b></label>
+<div class="input-group form-group">
+<div class="input-group-prepend">
+<span class="input-group-text"><i class="fa fa-car"></i></span>
+</div>
+<input type="text" name="inputCarNo" id="inputCarNo" class="form-control" placeholder="Car Number" #inputCarNo="ngModel"
+required autofocus required [ngModel]="docData?.carNumber" minlength="5" maxlength="20" ngModel>
+</div>
+<div class="alert alert-danger" role="alert" *ngIf="inputCarNo.invalid && (inputCarNo.dirty || inputCarNo.touched)" style="font-size: 14px;">
+Please enter a valid Car Number.
+</div>                               
+
+
+<label class="col-md-2 col-sm-3 col-xs-12 control-label" style="color:white; font-size: 16px;" class="form-horizontal"><b>Password</b></label>
+<div class="input-group form-group">
+<div class="input-group-prepend">
+<span class="input-group-text"><i class="fa fa-lock"></i></span>
+</div>
+<input type="password" name="inputPassword" id="inputPassword" class="form-control" placeholder="Password" #inputPassword="ngModel" required autofocus  [ngModel]="docData?.password" minlength="3" maxlength="20">
+</div>
+<div class="alert alert-danger" role="alert" *ngIf="inputPassword.invalid && (inputPassword.dirty || inputPassword.touched)" style="font-size: 14px;">
+Please enter a valid password between 3 to 30 chars.
+</div>                               
+                                              
+</div>
+
+<div class="card-footer">
+<div *ngIf="!settingsForm.valid else showSubmitButton">
+<button class="btn btn-lg btn-block btn-block" style="color:rgb(105, 172, 19); font-weight: bold;" disabled>Update</button>
+</div>
+<ng-template #showSubmitButton>
+<button class="btn btn-lg btn-block btn-block" type="submit" style="background-color:rgb(105, 172, 19); color: white">Update</button>
+</ng-template>                            
+</div>
+</div>
+</form>
+</span>
+</ng-template>
 </main>
+</body>
+</html>
