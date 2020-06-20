@@ -3,6 +3,9 @@ import{ GlobalConstants } from '../common/global-constants';
 import { MapsAPILoader, AgmMap } from '@agm/core';
 declare var google: any;
 
+
+
+
 interface Marker {
   lat: number;
   lng: number;
@@ -33,6 +36,8 @@ export class MapGoComponent {
   destination : any;
   origin :any ;
   distance : any;
+  address1 : string;
+  cost1:number ;
 
   originLat = GlobalConstants.origin.lat ;
   originLng = GlobalConstants.origin.lng ;  
@@ -78,7 +83,8 @@ public renderOptions = {
       this.geocoder = new google.maps.Geocoder();
       this.distance = this.calculateDistance(GlobalConstants.origin , GlobalConstants.destination);
       GlobalConstants.setDistance(this.distance);
-
+      this.address1=GlobalConstants.parkings[0]["location"];
+      this.cost1 = GlobalConstants.parkings[0]["cost"];   
     });
 
 
@@ -98,4 +104,5 @@ public renderOptions = {
     ).toFixed(2);
 }
 }
+
 
