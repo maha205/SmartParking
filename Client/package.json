@@ -22,7 +22,9 @@
     "@angular/platform-browser-dynamic": "~9.0.0-rc.6",
     "@angular/router": "~9.0.0-rc.6",
     "agm-direction": "^0.7.9",
+    "angular-cd-timer": "^1.0.0",
     "core-js": "^2.5.7",
+    "countup.js": "^2.0.5",
     "rxjs": "~6.5.3",
     "webpack": "^4.43.0",
     "zone.js": "~0.10.2"

@@ -26,6 +26,8 @@ import { ParkingMapComponent } from './parking-map/parking-map.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { MapGoComponent } from './map-go/map-go.component';
 import { SendMassageComponent } from './send-massage/send-massage.component';
+import { VisaComponent } from './visa/visa.component';
+import { CountUpTimerComponent } from './count-up-timer/count-up-timer.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,6 +48,8 @@ import { SendMassageComponent } from './send-massage/send-massage.component';
     ContactUsComponent,
     MapGoComponent,
     SendMassageComponent,
+    VisaComponent,
+    CountUpTimerComponent,
   ],
   imports: [
     BrowserModule,
