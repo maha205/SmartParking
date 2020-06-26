@@ -28,7 +28,7 @@ var parkings = [];
     let hour = GetRandomHour();
     let entry = car.entry - 1 ;
     let parkingsSorted = parkings.sort((p1,p2)=>{return p2.parking_slot-p1.parking_slot});//the parking that have the max parking slot
-    console.log(parkingsSorted);
+    // console.log(parkingsSorted);
     parkings = parkingsSorted//parkings after sort !
     for (let i = 0; i < parkings.length ; i++) {
         let found = parkings[i].count(hour);         
@@ -40,10 +40,16 @@ var parkings = [];
       }
     }
   }
-   console.log("Total cars that looked to parking are:")
-   console.log(totalCarsAmount);
+  console.log("");
+  console.log("");
+  console.log("Strategy 3 :")
+  console.log("Total cars that looked to parking are:")
+  console.log(totalCarsAmount);
    console.log("The numbers of cars that finded parking are:");
    console.log(countFounds);
+   console.log("");
+   let x = (countFounds/totalCarsAmount)*100
+   console.log("Success : ",x,"%");
 })();
 
 //-------------------build the list of all the parkings from mySql and build the parking Object for each parking ----------------------

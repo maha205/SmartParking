@@ -39,10 +39,18 @@ var parkings = [];
       }
     }
   }
-   console.log("Total cars that looked to parking are:")
-   console.log(totalCarsAmount);
+  console.log("");
+  console.log("");
+  console.log("Strategy 2 :")
+  console.log("Total cars that looked to parking are:")
+  console.log(totalCarsAmount);
    console.log("The numbers of cars that finded parking are:");
    console.log(countFounds);
+   console.log("");
+   let x = (countFounds/totalCarsAmount)*100
+   console.log("Success : ",x,"%");
+
+   
 })();
 
 //-------------------build the list of all the parkings from mySql and build the parking Object for each parking ----------------------
